@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(alg)
+project(Douayfense)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
@@ -18,6 +18,6 @@ file(
 	src/*
 )
 
-add_executable(alg ${MAIN_SOURCES})
+add_executable(Douayfense ${MAIN_SOURCES})
 
-target_link_libraries(alg ${mainLibs})
+target_link_libraries(Douayfense ${mainLibs})
