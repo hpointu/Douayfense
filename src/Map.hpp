@@ -13,7 +13,8 @@ public:
 		GROUND = 0,
 		PATH = 1,
 		DOOR = 2,
-		HOME = 3
+		HOME = 3,
+		ERROR = 99
 	};
 
 	struct Cell

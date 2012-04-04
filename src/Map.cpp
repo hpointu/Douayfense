@@ -28,7 +28,6 @@ void Map::render(sf::RenderTarget *target)
 															  CELL_SIZE,CELL_SIZE,
 															  getColor(c.type),
 															  1.f, sf::Color::Black);
-			rect.SetOutlineWidth(1.f);
 			rect.SetPosition(sf::Vector2f(j*CELL_SIZE, i*CELL_SIZE));
 			target->Draw(rect);
 		}
@@ -79,10 +78,13 @@ Map::Cell Map::getCell(float x, float y)
 	unsigned int i = y/CELL_SIZE;
 	unsigned int j = x/CELL_SIZE;
 
+	Cell err;
+	err.type = ERROR;
+
 	if(i<height && j<width)
 		return cells[i][j];
 	else
-		return cells[0][0];
+		return err;
 }
 
 std::vector<Map::Cell> Map::getDoors()

@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Tower.hpp"
+#include "Hud.hpp"
 
 class Application : public Singleton<Application>
 {
@@ -15,7 +16,8 @@ public:
 	enum MouseMode
 	{
 		NORMAL,
-		ADD_TOWER
+		TOWER_ADD,
+		TOWER_EDIT
 	};
 
 	void run();
@@ -28,7 +30,12 @@ private:
 
 	void manageAtHome();
 
+	void selectTowers(bool val = false);
+
 	sf::RenderWindow *window;
+	Hud *hud;
+	sf::View gameView;
+	sf::View hudView;
 	std::vector<Enemy*> enemies;
 	std::vector<Tower*> towers;
 	Map gameMap;
@@ -36,6 +43,8 @@ private:
 	int homePv;
 
 	MouseMode mouseMode;
+
+	Tower *selectedTower;
 
 };
 
