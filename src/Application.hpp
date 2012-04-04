@@ -6,13 +6,21 @@
 #include "Singleton.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "Tower.hpp"
 
 class Application : public Singleton<Application>
 {
 	friend class Singleton<Application>;
 public:
+	enum MouseMode
+	{
+		NORMAL,
+		ADD_TOWER
+	};
+
 	void run();
 	sf::Image enemyImage;
+	sf::Image towerImage;
 
 private:
 	Application();
@@ -22,9 +30,12 @@ private:
 
 	sf::RenderWindow *window;
 	std::vector<Enemy*> enemies;
+	std::vector<Tower*> towers;
 	Map gameMap;
 
 	int homePv;
+
+	MouseMode mouseMode;
 
 };
 

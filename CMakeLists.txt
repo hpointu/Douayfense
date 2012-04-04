@@ -24,3 +24,4 @@ target_link_libraries(Douayfense ${mainLibs})
 
 configure_file(res/default.map default.map COPYONLY)
 configure_file(res/skel.png skel.png COPYONLY)
+configure_file(res/tower.png tower.png COPYONLY)

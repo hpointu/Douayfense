@@ -34,10 +34,11 @@ public:
 	void setVisited(unsigned int i, unsigned int j, bool val);
 	bool isVisited(unsigned int i, unsigned int j);
 
+	unsigned int width, height;
+
 private:
 	std::vector< std::vector< Cell > > cells;
 	std::vector< std::vector< bool > > visited;
-	unsigned int width, height;
 
 	sf::Color getColor(Type type);
 };

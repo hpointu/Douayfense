@@ -17,8 +17,8 @@ void Enemy::render(sf::RenderTarget *target)
 {
 	if(!isDead())
 	{
-		sprite.SetPosition(x-(Application::getInstance()->enemyImage.GetWidth()/1.3f),
-								 y-(Application::getInstance()->enemyImage.GetHeight() + 8));
+		sprite.SetPosition(x-(Application::getInstance()->enemyImage.GetWidth()/2.f),
+								 y-(CELL_SIZE/2.f)-(Application::getInstance()->enemyImage.GetHeight()/2.f));
 		target->Draw(sprite);
 	}
 }

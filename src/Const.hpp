@@ -4,6 +4,6 @@
 #define W_WIDTH 800
 #define W_HEIGHT 600
 
-#define CELL_SIZE 20
+#define CELL_SIZE 25
 
 #endif // CONST_HPP

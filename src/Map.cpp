@@ -24,7 +24,11 @@ void Map::render(sf::RenderTarget *target)
 		for(unsigned int j=0; j<width; j++)
 		{
 			Cell c = cells[i][j];
-			sf::Shape rect = sf::Shape::Rectangle(-CELL_SIZE/2,-CELL_SIZE/2,CELL_SIZE/2,CELL_SIZE/2, getColor(c.type));
+			sf::Shape rect = sf::Shape::Rectangle(0,0,
+															  CELL_SIZE,CELL_SIZE,
+															  getColor(c.type),
+															  1.f, sf::Color::Black);
+			rect.SetOutlineWidth(1.f);
 			rect.SetPosition(sf::Vector2f(j*CELL_SIZE, i*CELL_SIZE));
 			target->Draw(rect);
 		}
@@ -75,7 +79,10 @@ Map::Cell Map::getCell(float x, float y)
 	unsigned int i = y/CELL_SIZE;
 	unsigned int j = x/CELL_SIZE;
 
-	return cells[i][j];
+	if(i<height && j<width)
+		return cells[i][j];
+	else
+		return cells[0][0];
 }
 
 std::vector<Map::Cell> Map::getDoors()
