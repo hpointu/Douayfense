@@ -5,17 +5,15 @@
 #include <string>
 #include <vector>
 
-#define CELL_SIZE 20
-
 class Map
 {
 public:
 	enum Type
 	{
-		GROUND,
-		HOME,
-		PATH,
-		START
+		GROUND = 0,
+		PATH = 1,
+		HOME = 2,
+		DOOR = 3
 	};
 
 	struct Cell
@@ -28,11 +26,20 @@ public:
 	Map();
 	Map(const std::vector< std::vector< Map::Cell > > &cellMap);
 
-	Cell nextPathCellFrom(unsigned int i, unsigned int j);
+	std::vector<Cell> getDoors();
+	Cell nextPathCellFrom(Cell current);
+	Cell getCell(float x, float y);
 	void render(sf::RenderTarget *target);
+
+	void setVisited(unsigned int i, unsigned int j, bool val);
+	bool isVisited(unsigned int i, unsigned int j);
 
 private:
 	std::vector< std::vector< Cell > > cells;
+	std::vector< std::vector< bool > > visited;
+	unsigned int width, height;
+
+	sf::Color getColor(Type type);
 };
 
 #endif // MAP_HPP
