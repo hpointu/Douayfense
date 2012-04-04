@@ -53,16 +53,16 @@ Map::Cell Map::nextPathCellFrom(Cell current)
 	if(current.posJ < width-1)
 		right.posJ += 1;
 
-	if(cells[left.posI][left.posJ].type == Map::PATH
+	if((cells[left.posI][left.posJ].type & Map::PATH) == Map::PATH
 			&& !visited[left.posI][left.posJ])
 		return left;
-	else if(cells[right.posI][right.posJ].type == Map::PATH
+	else if((cells[right.posI][right.posJ].type & Map::PATH) == Map::PATH
 			  && !visited[right.posI][right.posJ])
 		return right;
-	else if(cells[top.posI][top.posJ].type == Map::PATH
+	else if((cells[top.posI][top.posJ].type & Map::PATH) == Map::PATH
 			  && !visited[top.posI][top.posJ])
 		return top;
-	else if(cells[bottom.posI][bottom.posJ].type == Map::PATH
+	else if((cells[bottom.posI][bottom.posJ].type & Map::PATH) == Map::PATH
 			  && !visited[bottom.posI][bottom.posJ])
 		return bottom;
 

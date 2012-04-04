@@ -1,12 +1,17 @@
 #include "Application.hpp"
 #include "Const.hpp"
-#include "Map.hpp"
 #include "MapFileReader.hpp"
 #include "Enemy.hpp"
 
-Application::Application()
+#include <iostream>
+
+Application::Application() :
+	homePv(5)
 {
 	enemyImage.LoadFromFile("skel.png");
+
+	MapFileReader reader("default.map");
+	gameMap = reader.getMap();
 }
 
 Application::~Application()
@@ -19,11 +24,8 @@ void Application::run()
 											"Douayfense");
 
 
-	MapFileReader reader("default.map");
-	Map _map = reader.getMap();
-
-	Enemy e1(_map.getDoors()[0], _map);
-
+	Enemy *e1 = new Enemy(gameMap.getDoors()[0], gameMap);
+	enemies.push_back(e1);
 
 	while(window->IsOpened())
 	{
@@ -35,14 +37,35 @@ void Application::run()
 
 		window->Clear(sf::Color::Black);
 
+		std::vector<Enemy*>::iterator eit;
 		// tick
-		e1.moveToNext();
+		for(eit=enemies.begin(); eit!=enemies.end(); eit++)
+			(*eit)->moveToNext();
 
-		/////
-
-		_map.render(window);
-		e1.render(window);
-
+		// draw
+		gameMap.render(window);
+		for(eit=enemies.begin(); eit!=enemies.end(); eit++)
+			(*eit)->render(window);
 		window->Display();
+
+		// postprocess
+		manageAtHome();
+
+	}
+}
+
+void Application::manageAtHome()
+{
+	std::vector<Enemy*>::iterator eit;
+	// tick
+	for(eit=enemies.begin(); eit!=enemies.end(); eit++)
+	{
+		if(!(*eit)->isDead() && (*eit)->atHome())
+		{
+			homePv--;
+//			enemies.erase(eit);
+			(*eit)->pv = 0;
+			std::cout << "Home: " << homePv << std::endl;
+		}
 	}
 }

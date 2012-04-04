@@ -12,13 +12,17 @@ public:
 	void render(sf::RenderTarget *target);
 
 	float x, y;
+	int pv;
 
 	void moveToNext();
+	bool isDead();
+	bool atHome();
 
 private:
 	sf::Sprite sprite;
-	float speed;
 	Map myMap;
+
+	float speed;
 };
 
 #endif // ENEMY_HPP

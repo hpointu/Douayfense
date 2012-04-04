@@ -12,8 +12,8 @@ public:
 	{
 		GROUND = 0,
 		PATH = 1,
-		HOME = 2,
-		DOOR = 3
+		DOOR = 2,
+		HOME = 3
 	};
 
 	struct Cell
