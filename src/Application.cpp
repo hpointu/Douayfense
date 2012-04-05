@@ -3,6 +3,7 @@
 #include "MapFileReader.hpp"
 #include <iostream>
 #include "TowerFreezer.hpp"
+#include "levels/Level1.hpp"
 
 Application::Application() :
 	homePv(5)
@@ -14,31 +15,44 @@ Application::Application() :
 	freezerImage.LoadFromFile("freezer.png");
 	freezerImageUp.LoadFromFile("freezer_up.png");
 
-	MapFileReader reader("default.map");
-	gameMap = reader.getMap();
-
 	mouseMode = NORMAL;
-
-	gameView = sf::View(sf::Vector2f( gameMap.width*CELL_SIZE/2.f, 56+(gameMap.height*CELL_SIZE/2.f) ),
-							  sf::Vector2f( W_WIDTH/2.f, W_HEIGHT/2.f ));
-
-	bank = 700;
 }
 
 Application::~Application()
 {
 }
 
+void Application::initLevel(Level *level)
+{
+	enemies.clear();
+	towers.clear();
+	waves.clear();
+	mouseMode = NORMAL;
+	lastSelectedTower = NULL;
+	paused = false;
+	currentWave = 0;
+	mainClock.Reset();
+
+	// level information
+	level->init();
+	waves = level->getWaves();
+	bank = level->getBank();
+	gameMap = level->getMap();
+	homePv = level->getHomePv();
+
+	// init view
+	gameView = sf::View(sf::Vector2f( gameMap.width*CELL_SIZE/2.f, 56+(gameMap.height*CELL_SIZE/2.f) ),
+							  sf::Vector2f( W_WIDTH/2.f, W_HEIGHT/2.f ));
+}
+
 void Application::run()
 {
-	paused = false;
 	sf::WindowSettings settings;
 	settings.AntialiasingLevel = 0;
 	window = new sf::RenderWindow(sf::VideoMode(W_WIDTH, W_HEIGHT, 8),
 											"Douayfense", sf::Style::Close, settings);
 
 	hud = new Hud();
-
 
 	Tower *ghostTower = NULL;
 
@@ -47,10 +61,9 @@ void Application::run()
 	finalText.SetPosition(260,300);
 	finalText.SetColor(sf::Color::Red);
 
-	sf::Clock mainClock;
+	Level *lvl = new Level1();
+	initLevel(lvl);
 
-	createWaves();
-	currentWave = 0;
 	while(window->IsOpened())
 	{
 		// common iterators
@@ -251,50 +264,9 @@ void Application::run()
 			window->Display();
 		}
 
+	} // end loop
 
-	}
-}
-
-void Application::createWaves()
-{
-	std::vector<Enemy> tmpStock;
-	int i;
-
-	// first wave
-	for(i=0; i<10; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1.f));
-	waves.back().initStock(tmpStock);
-	tmpStock.clear();
-
-	// second wave
-	for(i=0; i<10; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
-	waves.back().initStock(tmpStock);
-	tmpStock.clear();
-
-	// third wave
-	for(i=0; i<14; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
-	waves.back().initStock(tmpStock);
-	tmpStock.clear();
-
-	// fourth wave
-	for(i=0; i<16; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/4.f));
-	waves.back().initStock(tmpStock);
-	tmpStock.clear();
-
-	// fifth wave
-	for(i=0; i<18; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/5.f));
-	waves.back().initStock(tmpStock);
-	tmpStock.clear();
-
+	delete lvl;
 }
 
 Tower* Application::createGhostFromKey(sf::Key::Code keyCode)

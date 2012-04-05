@@ -28,7 +28,9 @@ void Map::render(sf::RenderTarget *target)
 															  CELL_SIZE,CELL_SIZE,
 															  getColor(c.type),
 															  1.f, sf::Color::Black);
+
 			rect.SetPosition(sf::Vector2f(j*CELL_SIZE, i*CELL_SIZE));
+
 			target->Draw(rect);
 		}
 	}

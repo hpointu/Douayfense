@@ -4,7 +4,7 @@ Wave::Wave(Map *map, float freq) :
 	gameMap(map),
 	freq(freq)
 {
-
+	lastToken = 0;
 }
 
 void Wave::initStock(const std::vector<Enemy> &list)

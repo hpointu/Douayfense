@@ -9,6 +9,7 @@
 #include "Tower.hpp"
 #include "Hud.hpp"
 #include "Wave.hpp"
+#include "Level.hpp"
 
 class Application : public Singleton<Application>
 {
@@ -25,6 +26,8 @@ public:
 	bool paySum(int sum);
 	bool canPay(int sum);
 	void addMoney(int sum);
+
+	void initLevel(Level *level);
 
 	sf::Image enemyImage;
 	sf::Image towerImage, towerImageUp;
@@ -56,14 +59,12 @@ private:
 	std::vector<Wave> waves;
 	Map gameMap;
 
-
 	MouseMode mouseMode;
 
 	Tower *lastSelectedTower;
 	bool paused;
 
-	void createWaves();
-
+	sf::Clock mainClock;
 
 
 };
