@@ -92,6 +92,11 @@ void Hud::setTower(Tower *t, bool ghost)
 	upgrade << t->upgradeDescription() << ")";
 	value << "[S] Vendre pour " << t->getValue() << "$";
 
+	if(t->upgraded)
+	{
+		upgrade.str("");
+	}
+
 	line1.SetText(name.str());
 	line2.SetText(damage.str());
 	line3.SetText(range.str());
