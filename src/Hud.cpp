@@ -32,10 +32,13 @@ Hud::Hud()
 
 	money.SetPosition(530, topY+10);
 	wave.SetPosition(530, topY+30);
+	life.SetPosition(530, topY+50);
 	money.SetSize(14);
 	wave.SetSize(14);
+	life.SetSize(14);
 	money.SetColor(sf::Color(200,150,0));
 	wave.SetColor(sf::Color(200,200,200));
+	life.SetColor(sf::Color(200,200,200));
 
 	line1.SetColor(sf::Color::Yellow);
 
@@ -62,15 +65,49 @@ void Hud::render(sf::RenderTarget *target)
 		target->Draw(line6);
 	}
 
-	std::stringstream moneyText, waveText;
+	std::stringstream moneyText, waveText, lifeText;
 	moneyText << "Argent: " << Application::getInstance()->bank << "$";
 	waveText << "Vague: " << Application::getInstance()->currentWave+1 << std::endl;
+	lifeText << "Vie restantes: " << Application::getInstance()->homePv;
 	money.SetText(moneyText.str());
 	wave.SetText(waveText.str());
+	life.SetText(lifeText.str());
 
 	target->Draw(moneySprite);
 	target->Draw(money);
 	target->Draw(wave);
+	target->Draw(life);
+
+
+	// test menu
+	float topY = W_HEIGHT-112;
+	sf::Sprite t1(Application::getInstance()->towerImage);
+	sf::Sprite t2(Application::getInstance()->freezerImage);
+
+	sf::String tt1("A");
+	sf::String tt2("Z");
+	tt1.SetSize(12);
+	tt2.SetSize(12);
+
+	sf::Shape mbg = sf::Shape::Rectangle(1, topY-40,
+													 70, topY,
+													 sf::Color(0,0,0,150),
+													 2.f, sf::Color(180,180,180,150));
+
+	target->Draw(mbg);
+
+	t1.SetPosition(5, topY-35);
+	t2.SetPosition(40, topY-35);
+
+	tt1.SetPosition(5, topY-15);
+	tt2.SetPosition(40, topY-15);
+
+	target->Draw(t1);
+	target->Draw(t2);
+
+	target->Draw(tt1);
+	target->Draw(tt2);
+
 }
 
 

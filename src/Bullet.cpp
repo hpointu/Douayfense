@@ -10,6 +10,12 @@ Bullet::Bullet(float x, float y, Enemy *e, int damage) :
 	dead = false;
 }
 
+
+sf::Shape Bullet::getDrawable()
+{
+	return sf::Shape::Circle(x, y, 3.f, sf::Color::Red);
+}
+
 void Bullet::tick()
 {
 	if(!dead)
@@ -36,8 +42,7 @@ void Bullet::tick()
 
 		if(::fabs(dX) <= err && ::fabs(dY) <= err)
 		{
-			enemy->hurt(damage);
-			dead = true;
+			this->applyDamage();
 		}
 	}
 
@@ -47,7 +52,13 @@ void Bullet::render(sf::RenderTarget *target)
 {
 	if(!dead && !enemy->isDead())
 	{
-		sf::Shape shape = sf::Shape::Circle(x, y, 3.f, sf::Color::Red);
-		target->Draw(shape);
+//		shape.SetPosition(x, y);
+		target->Draw(getDrawable());
 	}
+}
+
+void Bullet::applyDamage()
+{
+	enemy->hurt(damage);
+	dead = true;
 }

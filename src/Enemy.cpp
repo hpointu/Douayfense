@@ -13,6 +13,7 @@ Enemy::Enemy(Map::Cell pos, Map map) :
 	speed = 2.2f;
 	pv = 150;
 	basePv = pv;
+	frozen = false;
 }
 
 void Enemy::render(sf::RenderTarget *target)
@@ -22,7 +23,8 @@ void Enemy::render(sf::RenderTarget *target)
 		sprite.SetPosition(x-(Application::getInstance()->enemyImage.GetWidth()/2.f),
 								 y-(CELL_SIZE/2.f)-(Application::getInstance()->enemyImage.GetHeight()/2.f));
 
-//		sprite.SetColor(sf::Color(100,100,255));
+		if(frozen)
+			sprite.SetColor(sf::Color(100,100,255));
 		target->Draw(sprite);
 
 		if(pv < basePv)
@@ -62,13 +64,15 @@ void Enemy::moveToNext()
 	float dX = toX-x;
 	float dY = toY-y;
 
-	float err = speed/2.f;
+	float realSpeed = frozen ? speed/2.f : speed;
+
+	float err = realSpeed/2.f;
 
 	if(::fabs(dX) > err)
-		x += (dX>0) ? speed : -speed;
+		x += (dX>0) ? realSpeed : -realSpeed;
 
 	if(::fabs(dY) > err)
-		y += (dY>0) ? speed : -speed;
+		y += (dY>0) ? realSpeed : -realSpeed;
 
 	myMap.setVisited(current.posI, current.posJ, true);
 }

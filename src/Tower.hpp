@@ -14,6 +14,8 @@ public:
 	Tower();
 	void render(sf::RenderTarget *target, bool ghost = false);
 	Tower* createCopy();
+
+	virtual Tower* getCopy();
 	virtual void upgrade();
 	virtual std::string upgradeDescription();
 	virtual std::string getName();
@@ -32,12 +34,14 @@ public:
 	bool active;
 
 	virtual void shoot(std::vector<Enemy*> enemies);
+	virtual bool isValid(Enemy *e);
+	virtual Bullet* createBullet(float x, float y, Enemy *e, int damage);
 
 protected:
 	int price;
+	sf::Sprite sprite;
 
 private:
-	sf::Sprite sprite;
 	float lastShot;
 	sf::Clock clock;
 	std::vector<Bullet*> bullets;

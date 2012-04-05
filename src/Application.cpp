@@ -2,6 +2,7 @@
 #include "Const.hpp"
 #include "MapFileReader.hpp"
 #include <iostream>
+#include "TowerFreezer.hpp"
 
 Application::Application() :
 	homePv(5)
@@ -9,6 +10,9 @@ Application::Application() :
 	enemyImage.LoadFromFile("skel.png");
 	towerImage.LoadFromFile("tower.png");
 	towerImageUp.LoadFromFile("tower_up.png");
+
+	freezerImage.LoadFromFile("freezer.png");
+	freezerImageUp.LoadFromFile("freezer_up.png");
 
 	MapFileReader reader("default.map");
 	gameMap = reader.getMap();
@@ -301,7 +305,7 @@ Tower* Application::createGhostFromKey(sf::Key::Code keyCode)
 		return new Tower();
 		break;
 	case sf::Key::Z:
-		return new Tower();
+		return new TowerFreezer();
 		break;
 	case sf::Key::E:
 		return new Tower();

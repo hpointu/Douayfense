@@ -12,9 +12,12 @@ public:
 	void render(sf::RenderTarget *target);
 	void tick();
 
+	virtual void applyDamage();
+	virtual sf::Shape getDrawable();
+
 	bool dead;
 
-private:
+protected:
 	Enemy *enemy;
 	float x, y;
 	int damage;

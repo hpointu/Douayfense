@@ -13,6 +13,7 @@ public:
 
 	float x, y;
 	int pv;
+	bool frozen;
 
 	void moveToNext();
 	bool isDead();

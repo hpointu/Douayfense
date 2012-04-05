@@ -28,8 +28,10 @@ public:
 
 	sf::Image enemyImage;
 	sf::Image towerImage, towerImageUp;
+	sf::Image freezerImage, freezerImageUp;
 	int bank;
 	unsigned int currentWave;
+	int homePv;
 
 private:
 	Application();
@@ -54,7 +56,6 @@ private:
 	std::vector<Wave> waves;
 	Map gameMap;
 
-	int homePv;
 
 	MouseMode mouseMode;
 

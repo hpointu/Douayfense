@@ -29,9 +29,14 @@ sf::Image* Tower::getImage()
 
 Tower* Tower::createCopy()
 {
-	Tower *t = new Tower(*this);
+	Tower *t = this->getCopy();
 	t->wrong = false;
 	return t;
+}
+
+Tower* Tower::getCopy()
+{
+	return new Tower(*this);
 }
 
 void Tower::upgrade()
@@ -61,9 +66,10 @@ void Tower::render(sf::RenderTarget *target, bool ghost)
 {
 	if(active)
 	{
+		sprite = sf::Sprite(*this->getImage());
 		sf::Vector2f center(j*CELL_SIZE + (CELL_SIZE/2.f), i*CELL_SIZE + (CELL_SIZE/2.f));
 		sprite.SetPosition(j*CELL_SIZE,
-								 i*CELL_SIZE - (Application::getInstance()->towerImage.GetHeight()/2.5f)
+								 i*CELL_SIZE - (this->getImage()->GetHeight()/2.5f)
 								 );
 
 		if(ghost)
@@ -104,6 +110,16 @@ void Tower::render(sf::RenderTarget *target, bool ghost)
 	}
 }
 
+Bullet* Tower::createBullet(float x, float y, Enemy *e, int damage)
+{
+	return new Bullet(x,y,e,damage);
+}
+
+bool Tower::isValid(Enemy *e)
+{
+	return true;
+}
+
 void Tower::shoot(std::vector<Enemy*> enemies)
 {
 	if(active)
@@ -121,9 +137,9 @@ void Tower::shoot(std::vector<Enemy*> enemies)
 				if(dist <= range)
 				{
 					lastShot = clock.GetElapsedTime();
-					if(!e->isDead())
+					if(!e->isDead() && isValid(e))
 					{
-						bullets.push_back(new Bullet(center.x, center.y, e, damage));
+						bullets.push_back(this->createBullet(center.x, center.y, e, damage));
 						break;
 					}
 				}
