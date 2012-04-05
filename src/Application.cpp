@@ -1,8 +1,6 @@
 #include "Application.hpp"
 #include "Const.hpp"
 #include "MapFileReader.hpp"
-#include "Enemy.hpp"
-
 #include <iostream>
 
 Application::Application() :
@@ -10,6 +8,7 @@ Application::Application() :
 {
 	enemyImage.LoadFromFile("skel.png");
 	towerImage.LoadFromFile("tower.png");
+	towerImageUp.LoadFromFile("tower_up.png");
 
 	MapFileReader reader("default.map");
 	gameMap = reader.getMap();
@@ -17,7 +16,9 @@ Application::Application() :
 	mouseMode = NORMAL;
 
 	gameView = sf::View(sf::Vector2f( gameMap.width*CELL_SIZE/2.f, 56+(gameMap.height*CELL_SIZE/2.f) ),
-						 sf::Vector2f( W_WIDTH/2.f, W_HEIGHT/2.f ));
+							  sf::Vector2f( W_WIDTH/2.f, W_HEIGHT/2.f ));
+
+	bank = 700;
 }
 
 Application::~Application()
@@ -26,6 +27,7 @@ Application::~Application()
 
 void Application::run()
 {
+	paused = false;
 	sf::WindowSettings settings;
 	settings.AntialiasingLevel = 0;
 	window = new sf::RenderWindow(sf::VideoMode(W_WIDTH, W_HEIGHT, 8),
@@ -34,13 +36,12 @@ void Application::run()
 	hud = new Hud();
 
 
-	Enemy *e1 = new Enemy(gameMap.getDoors()[0], gameMap);
-	enemies.push_back(e1);
-
 	Tower *ghostTower = NULL;
 
 	sf::Clock mainClock;
 
+	createWaves();
+	currentWave = 0;
 	while(window->IsOpened())
 	{
 		// common iterators
@@ -58,21 +59,48 @@ void Application::run()
 				Map::Cell cell = gameMap.getCell(vcoords.x, vcoords.y);
 				ghostTower->i = cell.posI;
 				ghostTower->j = cell.posJ;
+				ghostTower->wrong = towerOnCell(cell) || (cell.type != Map::GROUND);
 			}
 
-			else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::A)
+			else if(e.Type == sf::Event::KeyPressed
+					  && (e.Key.Code == sf::Key::A
+							|| e.Key.Code == sf::Key::Z
+							|| e.Key.Code == sf::Key::E))
 			{
 				if(mouseMode != TOWER_ADD)
 				{
-					ghostTower = new Tower();
+					ghostTower = createGhostFromKey(e.Key.Code);
 					mouseMode = TOWER_ADD;
 					selectTowers(true);
+					hud->setTower(ghostTower);
 				}
-				else
+			}
+			else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Escape)
+			{
+				if(mouseMode == TOWER_ADD)
 				{
 					delete ghostTower; ghostTower = NULL;
 					mouseMode = NORMAL;
-					selectTowers(false);
+				}
+				selectTowers(false);
+				hud->setTower(NULL);
+				lastSelectedTower = NULL;
+			}
+
+			else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Space)
+			{
+				paused = !paused;
+			}
+
+			else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::U)
+			{
+				if(mouseMode == NORMAL && lastSelectedTower)
+				{
+					if(!lastSelectedTower->upgraded && paySum(lastSelectedTower->getUpgradePrice()))
+					{
+						lastSelectedTower->upgrade();
+						hud->setTower(lastSelectedTower);
+					}
 				}
 			}
 
@@ -84,11 +112,18 @@ void Application::run()
 				{
 					if(cell.type != Map::ERROR)
 					{
-						towers.push_back(ghostTower->createCopy());
-						towers.back()->placed = true;
-						delete ghostTower; ghostTower = NULL;
-						mouseMode = NORMAL;
-						selectTowers(false);
+						if(!ghostTower->wrong)
+						{
+							if(paySum(ghostTower->getPrice()))
+							{
+								towers.push_back(ghostTower->createCopy());
+								delete ghostTower; ghostTower = NULL;
+								mouseMode = NORMAL;
+								selectTowers(false);
+								towers.back()->selected = true;
+								lastSelectedTower = towers.back();
+							}
+						}
 					}
 				}
 				else if(e.MouseButton.Button == sf::Mouse::Left && mouseMode == NORMAL)
@@ -104,6 +139,7 @@ void Application::run()
 							if(t->i == cell.posI && t->j == cell.posJ)
 							{
 								t->selected = true;
+								lastSelectedTower = t;
 								hud->setTower(t);
 								break;
 							}
@@ -112,7 +148,6 @@ void Application::run()
 				}
 				else
 				{
-//					mouseMode = NORMAL;
 				}
 			}
 		}
@@ -123,10 +158,37 @@ void Application::run()
 			mainClock.Reset();
 
 			window->Clear(sf::Color(10,10,10));
-			// tick
-			for(eit=enemies.begin(); eit!=enemies.end(); eit++)
-				(*eit)->moveToNext();
+			// ------ tick
+			if(!paused)
+			{
+				if(currentWave < waves.size())
+				{
+					Enemy *e = NULL;
+					if(waves[currentWave].hasStock())
+					{
+						e = waves[currentWave].getNextEnemy();
+						if(e)
+						{
+							enemies.push_back(e);
+						}
+					}
+					else
+					{
+						// next wave
+						if(nbAlive() < 1)
+						{
+							addMoney(waves[currentWave].value);
+							currentWave++;
+						}
+					}
+				}
 
+				for(eit=enemies.begin(); eit!=enemies.end(); eit++)
+					(*eit)->moveToNext();
+				for(tit=towers.begin(); tit!=towers.end(); tit++)
+					(*tit)->shoot(enemies);
+			}
+			// ------- draw
 			// GAME Drawing
 			window->SetView(gameView);
 			gameMap.render(window);
@@ -138,7 +200,7 @@ void Application::run()
 				(*tit)->render(window);
 
 			if(ghostTower)
-				ghostTower->render(window);
+				ghostTower->render(window, true);
 
 			// HUD Drawing
 			window->SetView(window->GetDefaultView());
@@ -155,6 +217,102 @@ void Application::run()
 	}
 }
 
+void Application::createWaves()
+{
+	std::vector<Enemy> tmpStock;
+	int i;
+
+	// first wave
+	for(i=0; i<10; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
+	waves.push_back(Wave(&gameMap, 1.f));
+	waves.back().initStock(tmpStock);
+	tmpStock.clear();
+
+	// second wave
+	for(i=0; i<10; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
+	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.back().initStock(tmpStock);
+	tmpStock.clear();
+
+	// third wave
+	for(i=0; i<15; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
+	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.back().initStock(tmpStock);
+	tmpStock.clear();
+
+	// fourth wave
+	for(i=0; i<15; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
+	waves.push_back(Wave(&gameMap, 1/6.f));
+	waves.back().initStock(tmpStock);
+	tmpStock.clear();
+
+}
+
+Tower* Application::createGhostFromKey(sf::Key::Code keyCode)
+{
+	switch(keyCode)
+	{
+	case sf::Key::A:
+		return new Tower();
+		break;
+	case sf::Key::Z:
+		return new Tower();
+		break;
+	case sf::Key::E:
+		return new Tower();
+		break;
+	default:
+		return NULL;
+		break;
+	}
+}
+
+int Application::nbAlive()
+{
+	int cpt = 0;
+
+	std::vector<Enemy*>::iterator eit;
+	for(eit=enemies.begin(); eit!=enemies.end(); eit++)
+	{
+		if(!(*eit)->isDead())
+			cpt++;
+	}
+
+	return cpt;
+}
+
+bool Application::paySum(int sum)
+{
+	if(canPay(sum))
+	{
+		bank -= sum;
+		return true;
+	}
+	return false;
+}
+
+bool Application::canPay(int sum)
+{
+	return bank >= sum;
+}
+
+bool Application::towerOnCell(const Map::Cell &c)
+{
+	std::vector<Tower*>::iterator tit;
+	for(tit=towers.begin(); tit!=towers.end(); tit++)
+	{
+		if((*tit)->i == c.posI && (*tit)->j == c.posJ)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Application::selectTowers(bool val)
 {
 	std::vector<Tower*>::iterator tit;
@@ -163,10 +321,14 @@ void Application::selectTowers(bool val)
 
 }
 
+void Application::addMoney(int sum)
+{
+	bank += sum;
+}
+
 void Application::manageAtHome()
 {
 	std::vector<Enemy*>::iterator eit;
-	// tick
 	for(eit=enemies.begin(); eit!=enemies.end(); eit++)
 	{
 		if(!(*eit)->isDead() && (*eit)->atHome())

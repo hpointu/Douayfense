@@ -18,11 +18,15 @@ public:
 	bool isDead();
 	bool atHome();
 
+	void hurt(int damage);
+
 private:
 	sf::Sprite sprite;
 	Map myMap;
 
 	float speed;
+
+	int basePv;
 };
 
 #endif // ENEMY_HPP

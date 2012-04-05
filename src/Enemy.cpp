@@ -2,6 +2,7 @@
 #include "Application.hpp"
 #include "Const.hpp"
 #include <cmath>
+#include <iostream>
 
 Enemy::Enemy(Map::Cell pos, Map map) :
 	myMap(map)
@@ -9,8 +10,9 @@ Enemy::Enemy(Map::Cell pos, Map map) :
 	x = pos.posJ*CELL_SIZE;
 	y = pos.posI*CELL_SIZE;
 	sprite = sf::Sprite(Application::getInstance()->enemyImage);
-	speed = 3.2f;
-	pv = 100;
+	speed = 2.2f;
+	pv = 150;
+	basePv = pv;
 }
 
 void Enemy::render(sf::RenderTarget *target)
@@ -19,7 +21,33 @@ void Enemy::render(sf::RenderTarget *target)
 	{
 		sprite.SetPosition(x-(Application::getInstance()->enemyImage.GetWidth()/2.f),
 								 y-(CELL_SIZE/2.f)-(Application::getInstance()->enemyImage.GetHeight()/2.f));
+
+//		sprite.SetColor(sf::Color(100,100,255));
 		target->Draw(sprite);
+
+		if(pv < basePv)
+		{
+			// draw pv
+			sf::Shape border = sf::Shape::Rectangle(x - (Application::getInstance()->enemyImage.GetWidth()/2.f) - 8,
+																 y - (Application::getInstance()->enemyImage.GetHeight()) - 6,
+																 x - (Application::getInstance()->enemyImage.GetWidth()/2.f) + 8,
+																 y - (Application::getInstance()->enemyImage.GetHeight()) - 1,
+																 sf::Color(0,0,0,0),
+																 1.f,
+																 sf::Color::White
+																 );
+
+			float pw = ((float)pv/basePv) * 16;
+			sf::Shape fill = sf::Shape::Rectangle(x - (Application::getInstance()->enemyImage.GetWidth()/2.f) - 8,
+																 y - (Application::getInstance()->enemyImage.GetHeight()) - 6,
+																 x - (Application::getInstance()->enemyImage.GetWidth()/2.f) - 8 + pw,
+																 y - (Application::getInstance()->enemyImage.GetHeight()) - 1,
+																 sf::Color::White
+																 );
+
+			target->Draw(fill);
+			target->Draw(border);
+		}
 	}
 }
 
@@ -43,6 +71,19 @@ void Enemy::moveToNext()
 		y += (dY>0) ? speed : -speed;
 
 	myMap.setVisited(current.posI, current.posJ, true);
+}
+
+void Enemy::hurt(int damage)
+{
+	if(!isDead())
+	{
+		pv -= damage;
+		if(pv < 0)
+			pv = 0;
+
+		if(isDead())
+			Application::getInstance()->addMoney(basePv/3);
+	}
 }
 
 bool Enemy::isDead()

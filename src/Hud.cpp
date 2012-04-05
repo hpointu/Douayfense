@@ -19,14 +19,16 @@ Hud::Hud()
 	line1.SetSize(15);
 	line2.SetSize(12);
 	line3.SetSize(12);
-	line4.SetSize(11);
+	line4.SetSize(12);
 	line5.SetSize(11);
+	line6.SetSize(11);
 
 	line1.SetPosition(60, topY+8);
 	line2.SetPosition(60, topY+25);
 	line3.SetPosition(60, topY+40);
-	line4.SetPosition(60, topY+65);
-	line5.SetPosition(60, topY+80);
+	line4.SetPosition(60, topY+55);
+	line5.SetPosition(60, topY+75);
+	line6.SetPosition(60, topY+90);
 
 	money.SetPosition(530, topY+10);
 	wave.SetPosition(530, topY+30);
@@ -37,16 +39,12 @@ Hud::Hud()
 
 	line1.SetColor(sf::Color::Yellow);
 
-	line4.SetColor(sf::Color(0,200,200));
-	line5.SetColor(sf::Color(0,200,0));
+	line5.SetColor(sf::Color(0,200,200));
+	line6.SetColor(sf::Color(0,200,0));
 
 	portrait.SetPosition(15, topY+15);
 
 	infoTower = false;
-
-	// todo : ailleurs:
-	money.SetText("Argent: 1200$");
-	wave.SetText("Vague: 1");
 }
 
 void Hud::render(sf::RenderTarget *target)
@@ -61,7 +59,14 @@ void Hud::render(sf::RenderTarget *target)
 		target->Draw(line3);
 		target->Draw(line4);
 		target->Draw(line5);
+		target->Draw(line6);
 	}
+
+	std::stringstream moneyText, waveText;
+	moneyText << "Argent: " << Application::getInstance()->bank << "$";
+	waveText << "Vague: " << Application::getInstance()->currentWave+1 << std::endl;
+	money.SetText(moneyText.str());
+	wave.SetText(waveText.str());
 
 	target->Draw(moneySprite);
 	target->Draw(money);
@@ -75,18 +80,21 @@ void Hud::setTower(Tower *t)
 
 	if(!infoTower) return;
 
-	std::stringstream damage, range, value, upgrade;
+	std::stringstream damage, range, speed, value, upgrade;
 	damage << "Degats : " << t->damage;
 	range << "Portee : " << t->range;
-	upgrade << "[U] Ameliorer pour 111$";
+	speed << "Vitesse : " << t->speed << " (" << (t->speed/2.f) << " tir/sec)";
+	upgrade << "[U] Ameliorer pour " << t->getUpgradePrice() << "$ (";
+	upgrade << t->upgradeDescription() << ")";
 	value << "[S] Vendre pour " << t->getValue() << "$";
 
-	line1.SetText(t->name);
+	line1.SetText(t->getName());
 	line2.SetText(damage.str());
 	line3.SetText(range.str());
-	line4.SetText(upgrade.str());
-	line5.SetText(value.str());
+	line4.SetText(speed.str());
+	line5.SetText(upgrade.str());
+	line6.SetText(value.str());
 
-	portrait.SetImage(Application::getInstance()->towerImage);
+	portrait.SetImage(*t->getImage());
 
 }

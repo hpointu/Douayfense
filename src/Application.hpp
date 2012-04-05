@@ -8,6 +8,7 @@
 #include <vector>
 #include "Tower.hpp"
 #include "Hud.hpp"
+#include "Wave.hpp"
 
 class Application : public Singleton<Application>
 {
@@ -21,8 +22,14 @@ public:
 	};
 
 	void run();
+	bool paySum(int sum);
+	bool canPay(int sum);
+	void addMoney(int sum);
+
 	sf::Image enemyImage;
-	sf::Image towerImage;
+	sf::Image towerImage, towerImageUp;
+	int bank;
+	unsigned int currentWave;
 
 private:
 	Application();
@@ -32,19 +39,31 @@ private:
 
 	void selectTowers(bool val = false);
 
+	bool towerOnCell(const Map::Cell &c);
+
+	int nbAlive();
+
+	Tower *createGhostFromKey(sf::Key::Code keyCode);
+
 	sf::RenderWindow *window;
 	Hud *hud;
 	sf::View gameView;
 	sf::View hudView;
 	std::vector<Enemy*> enemies;
 	std::vector<Tower*> towers;
+	std::vector<Wave> waves;
 	Map gameMap;
 
 	int homePv;
 
 	MouseMode mouseMode;
 
-	Tower *selectedTower;
+	Tower *lastSelectedTower;
+	bool paused;
+
+	void createWaves();
+
+
 
 };
 
