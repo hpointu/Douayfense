@@ -11,7 +11,7 @@ public:
 	Hud();
 	void render(sf::RenderTarget *target);
 
-	void setTower(Tower *t);
+	void setTower(Tower *t, bool ghost = false);
 
 private:
 	sf::Sprite sprite;

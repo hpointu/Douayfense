@@ -38,6 +38,11 @@ void Application::run()
 
 	Tower *ghostTower = NULL;
 
+	sf::String finalText;
+	finalText.SetSize(40);
+	finalText.SetPosition(260,300);
+	finalText.SetColor(sf::Color::Red);
+
 	sf::Clock mainClock;
 
 	createWaves();
@@ -72,7 +77,7 @@ void Application::run()
 					ghostTower = createGhostFromKey(e.Key.Code);
 					mouseMode = TOWER_ADD;
 					selectTowers(true);
-					hud->setTower(ghostTower);
+					hud->setTower(ghostTower, true);
 				}
 			}
 			else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Escape)
@@ -104,6 +109,18 @@ void Application::run()
 				}
 			}
 
+			else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::S)
+			{
+				if(mouseMode == NORMAL && lastSelectedTower)
+				{
+					addMoney(lastSelectedTower->getValue());
+					lastSelectedTower->active = false;
+					selectTowers(false);
+					hud->setTower(NULL);
+					lastSelectedTower = NULL;
+				}
+			}
+
 			else if(e.Type == sf::Event::MouseButtonPressed)
 			{
 				sf::Vector2f vcoords = window->ConvertCoords(e.MouseButton.X, e.MouseButton.Y, &gameView);
@@ -122,6 +139,7 @@ void Application::run()
 								selectTowers(false);
 								towers.back()->selected = true;
 								lastSelectedTower = towers.back();
+								hud->setTower(lastSelectedTower);
 							}
 						}
 					}
@@ -152,13 +170,17 @@ void Application::run()
 			}
 		}
 
-
 		if(mainClock.GetElapsedTime() > 1.f/60.f)
 		{
 			mainClock.Reset();
 
 			window->Clear(sf::Color(10,10,10));
 			// ------ tick
+			if(homePv < 1)
+			{
+				paused = true;
+			}
+
 			if(!paused)
 			{
 				if(currentWave < waves.size())
@@ -206,6 +228,18 @@ void Application::run()
 			window->SetView(window->GetDefaultView());
 			hud->render(window);
 
+			// ended ?
+			if(homePv < 1)
+			{
+				finalText.SetText("GAME OVER!");
+				window->Draw(finalText);
+			}
+			else if(currentWave >= waves.size())
+			{
+				finalText.SetText("Congratulations !");
+				window->Draw(finalText);
+			}
+
 			// postprocess
 			manageAtHome();
 
@@ -237,9 +271,9 @@ void Application::createWaves()
 	tmpStock.clear();
 
 	// third wave
-	for(i=0; i<15; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
+	for(i=0; i<18; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
+	waves.push_back(Wave(&gameMap, 1/4.f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 

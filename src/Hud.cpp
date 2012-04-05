@@ -74,13 +74,17 @@ void Hud::render(sf::RenderTarget *target)
 }
 
 
-void Hud::setTower(Tower *t)
+void Hud::setTower(Tower *t, bool ghost)
 {
 	infoTower = t == NULL ? false : true;
 
 	if(!infoTower) return;
 
-	std::stringstream damage, range, speed, value, upgrade;
+	std::stringstream damage, range, speed, value, upgrade, name;
+
+	name << t->getName();
+	if(ghost)
+		name << " (prix: " << t->getPrice() << "$)";
 	damage << "Degats : " << t->damage;
 	range << "Portee : " << t->range;
 	speed << "Vitesse : " << t->speed << " (" << (t->speed/2.f) << " tir/sec)";
@@ -88,7 +92,7 @@ void Hud::setTower(Tower *t)
 	upgrade << t->upgradeDescription() << ")";
 	value << "[S] Vendre pour " << t->getValue() << "$";
 
-	line1.SetText(t->getName());
+	line1.SetText(name.str());
 	line2.SetText(damage.str());
 	line3.SetText(range.str());
 	line4.SetText(speed.str());

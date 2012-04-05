@@ -15,6 +15,7 @@ Tower::Tower() :
 	sprite = sf::Sprite(*this->getImage());
 	wrong = false;
 	upgraded = false;
+	active = true;
 	lastShot = 0.f;
 }
 
@@ -58,74 +59,80 @@ std::string Tower::getName()
 
 void Tower::render(sf::RenderTarget *target, bool ghost)
 {
-	sf::Vector2f center(j*CELL_SIZE + (CELL_SIZE/2.f), i*CELL_SIZE + (CELL_SIZE/2.f));
-	sprite.SetPosition(j*CELL_SIZE,
-							 i*CELL_SIZE - (Application::getInstance()->towerImage.GetHeight()/2.5f)
-							 );
+	if(active)
+	{
+		sf::Vector2f center(j*CELL_SIZE + (CELL_SIZE/2.f), i*CELL_SIZE + (CELL_SIZE/2.f));
+		sprite.SetPosition(j*CELL_SIZE,
+								 i*CELL_SIZE - (Application::getInstance()->towerImage.GetHeight()/2.5f)
+								 );
 
-	if(ghost)
-	{
-		sprite.SetColor(sf::Color(255,255,255,180));
-	}
-	else
-	{
-		sprite.SetColor(sf::Color(255,255,255));
-	}
-
-	if(ghost || selected)
-	{
-		sf::Color c1, c2;
-		if(!wrong)
+		if(ghost)
 		{
-			c1 = sf::Color(0,200,0,40);
-			if(!upgraded)
-				c2 = sf::Color(0,200,0,100);
-			else
-				c2 = sf::Color(200,200,0,100);
+			sprite.SetColor(sf::Color(255,255,255,180));
 		}
 		else
 		{
-			c1 = sf::Color(200,0,0,40);
-			c2 = sf::Color(200,0,0,100);
+			sprite.SetColor(sf::Color(255,255,255));
 		}
-		sf::Shape rangeCircle = sf::Shape::Circle(center, range, c1, 2.f, c2);
-		target->Draw(rangeCircle);
-	}
-	target->Draw(sprite);
 
-	std::vector<Bullet*>::iterator bit;
-	for(bit=bullets.begin(); bit!=bullets.end(); bit++)
-	{
-		(*bit)->render(target);
+		if(ghost || selected)
+		{
+			sf::Color c1, c2;
+			if(!wrong)
+			{
+				c1 = sf::Color(0,200,0,40);
+				if(!upgraded)
+					c2 = sf::Color(0,200,0,100);
+				else
+					c2 = sf::Color(200,200,0,100);
+			}
+			else
+			{
+				c1 = sf::Color(200,0,0,40);
+				c2 = sf::Color(200,0,0,100);
+			}
+			sf::Shape rangeCircle = sf::Shape::Circle(center, range, c1, 2.f, c2);
+			target->Draw(rangeCircle);
+		}
+		target->Draw(sprite);
+
+		std::vector<Bullet*>::iterator bit;
+		for(bit=bullets.begin(); bit!=bullets.end(); bit++)
+		{
+			(*bit)->render(target);
+		}
 	}
 }
 
 void Tower::shoot(std::vector<Enemy*> enemies)
 {
-	if(clock.GetElapsedTime() - lastShot >= 2.f/speed)
+	if(active)
 	{
-		sf::Vector2f center(j*CELL_SIZE + (CELL_SIZE/2.f), i*CELL_SIZE + (CELL_SIZE/2.f));
-		std::vector<Enemy*>::iterator it;
-		for(it=enemies.begin(); it!=enemies.end(); it++)
+		if(clock.GetElapsedTime() - lastShot >= 2.f/speed)
 		{
-			Enemy *e = *it;
-			float dx = ::fabs(center.x - e->x);
-			float dy = ::fabs(center.y - e->y);
-			float dist = ::sqrt((dx*dx) + (dy*dy));
-			if(dist <= range)
+			sf::Vector2f center(j*CELL_SIZE + (CELL_SIZE/2.f), i*CELL_SIZE + (CELL_SIZE/2.f));
+			std::vector<Enemy*>::iterator it;
+			for(it=enemies.begin(); it!=enemies.end(); it++)
 			{
-				lastShot = clock.GetElapsedTime();
-				if(!e->isDead())
+				Enemy *e = *it;
+				float dx = ::fabs(center.x - e->x);
+				float dy = ::fabs(center.y - e->y);
+				float dist = ::sqrt((dx*dx) + (dy*dy));
+				if(dist <= range)
 				{
-					bullets.push_back(new Bullet(center.x, center.y, e, damage));
-					break;
+					lastShot = clock.GetElapsedTime();
+					if(!e->isDead())
+					{
+						bullets.push_back(new Bullet(center.x, center.y, e, damage));
+						break;
+					}
 				}
 			}
 		}
-	}
-	std::vector<Bullet*>::iterator bit;
-	for(bit=bullets.begin(); bit!=bullets.end(); bit++)
-	{
-		(*bit)->tick();
+		std::vector<Bullet*>::iterator bit;
+		for(bit=bullets.begin(); bit!=bullets.end(); bit++)
+		{
+			(*bit)->tick();
+		}
 	}
 }

@@ -29,6 +29,7 @@ public:
 	int speed;
 	bool wrong;
 	bool upgraded;
+	bool active;
 
 	virtual void shoot(std::vector<Enemy*> enemies);
 

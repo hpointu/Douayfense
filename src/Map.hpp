@@ -14,6 +14,7 @@ public:
 		PATH = 1,
 		DOOR = 2,
 		HOME = 3,
+		ROCK = 4,
 		ERROR = 99
 	};
 

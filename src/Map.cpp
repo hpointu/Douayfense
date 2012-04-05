@@ -118,6 +118,9 @@ sf::Color Map::getColor(Type type)
 	case Map::DOOR:
 		return sf::Color::Yellow;
 		break;
+	case Map::ROCK:
+		return sf::Color(100,100,100);
+		break;
 	default:
 		return sf::Color::Red;
 		break;
