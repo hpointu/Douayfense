@@ -271,16 +271,23 @@ void Application::createWaves()
 	tmpStock.clear();
 
 	// third wave
-	for(i=0; i<18; i++)
+	for(i=0; i<14; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
+	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.back().initStock(tmpStock);
+	tmpStock.clear();
+
+	// fourth wave
+	for(i=0; i<16; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/4.f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 
-	// fourth wave
-	for(i=0; i<15; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/6.f));
+	// fifth wave
+	for(i=0; i<18; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
+	waves.push_back(Wave(&gameMap, 1/5.f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 
