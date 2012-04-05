@@ -7,7 +7,7 @@ Level1::Level1() :
 
 std::string Level1::getFilename()
 {
-	return "level1.map";
+	return "map/level1.map";
 }
 
 int Level1::getBank()

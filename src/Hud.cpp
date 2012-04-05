@@ -6,8 +6,8 @@
 
 Hud::Hud()
 {
-	image.LoadFromFile("bg.png");
-	moneyImage.LoadFromFile("money.png");
+	image.LoadFromFile("img/bg.png");
+	moneyImage.LoadFromFile("img/money.png");
 
 	sprite = sf::Sprite(image);
 	moneySprite = sf::Sprite(moneyImage);

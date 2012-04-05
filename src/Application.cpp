@@ -8,12 +8,12 @@
 Application::Application() :
 	homePv(5)
 {
-	enemyImage.LoadFromFile("skel.png");
-	towerImage.LoadFromFile("tower.png");
-	towerImageUp.LoadFromFile("tower_up.png");
+	enemyImage.LoadFromFile("img/skel.png");
+	towerImage.LoadFromFile("img/tower.png");
+	towerImageUp.LoadFromFile("img/tower_up.png");
 
-	freezerImage.LoadFromFile("freezer.png");
-	freezerImageUp.LoadFromFile("freezer_up.png");
+	freezerImage.LoadFromFile("img/freezer.png");
+	freezerImageUp.LoadFromFile("img/freezer_up.png");
 
 	mouseMode = NORMAL;
 }
