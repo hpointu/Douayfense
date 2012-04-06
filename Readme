@@ -1,0 +1,13 @@
+= Tower defense challenge =
+Un petit jeu tout con de tower defense
+
+== Install ==
+ - dépend de libsfml-1.6 : libsfml (libsfml-dev sur ubuntu ?)
+
+POJECT: répertoire qui contient le projet
+
+=== Compilation ===
+cd PROJECT
+mkdir build; cd build
+cmake ..
+make
