@@ -70,9 +70,9 @@ std::vector<Wave> Level1::getWaves()
 	tmpStock.clear();
 
 	// seventh wave
-	for(i=0; i<35; i++)
+	for(i=0; i<45; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/9.f));
+	waves.push_back(Wave(&gameMap, 1/10.f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 

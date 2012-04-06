@@ -21,7 +21,7 @@ public:
 	virtual std::string getName();
 	virtual int getValue(){ return 0.75*price; }
 	virtual int getPrice(){ return 1.f*price; }
-	virtual int getUpgradePrice(){ return 0.75*price; }
+	virtual int getUpgradePrice(){ return 1.50*price; }
 	virtual sf::Image* getImage();
 
 	unsigned int i,j;
