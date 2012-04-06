@@ -91,9 +91,9 @@ void Tower::render(sf::RenderTarget *target, bool ghost)
 			sf::Color c1, c2;
 			if(!wrong)
 			{
-				c1 = sf::Color(0,200,0,40);
+				c1 = sf::Color(0,0,200,40);
 				if(!upgraded)
-					c2 = sf::Color(0,200,0,100);
+					c2 = sf::Color(0,0,200,100);
 				else
 					c2 = sf::Color(200,200,0,100);
 			}

@@ -61,7 +61,7 @@ void Enemy::tick()
 
 	if(poisoned)
 	{
-		hurt(0.1);
+		hurt(0.13);
 	}
 }
 
