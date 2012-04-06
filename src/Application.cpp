@@ -3,17 +3,22 @@
 #include "MapFileReader.hpp"
 #include <iostream>
 #include "TowerFreezer.hpp"
+#include "TowerPoisoner.hpp"
 #include "levels/Level1.hpp"
 
 Application::Application() :
 	homePv(5)
 {
 	enemyImage.LoadFromFile("img/skel.png");
+
 	towerImage.LoadFromFile("img/tower.png");
 	towerImageUp.LoadFromFile("img/tower_up.png");
 
 	freezerImage.LoadFromFile("img/freezer.png");
 	freezerImageUp.LoadFromFile("img/freezer_up.png");
+
+	poisonerImage.LoadFromFile("img/poisoner.png");
+	poisonerImageUp.LoadFromFile("img/poisoner_up.png");
 
 	mouseMode = NORMAL;
 }
@@ -48,7 +53,7 @@ void Application::initLevel(Level *level)
 void Application::run()
 {
 	sf::WindowSettings settings;
-	settings.AntialiasingLevel = 0;
+	settings.AntialiasingLevel = 2;
 	window = new sf::RenderWindow(sf::VideoMode(W_WIDTH, W_HEIGHT, 8),
 											"Douayfense", sf::Style::Close, settings);
 
@@ -223,7 +228,7 @@ void Application::run()
 				}
 
 				for(eit=enemies.begin(); eit!=enemies.end(); eit++)
-					(*eit)->moveToNext();
+					(*eit)->tick();
 				for(tit=towers.begin(); tit!=towers.end(); tit++)
 					(*tit)->shoot(enemies);
 			}
@@ -280,7 +285,7 @@ Tower* Application::createGhostFromKey(sf::Key::Code keyCode)
 		return new TowerFreezer();
 		break;
 	case sf::Key::E:
-		return new Tower();
+		return new TowerPoisoner();
 		break;
 	default:
 		return NULL;

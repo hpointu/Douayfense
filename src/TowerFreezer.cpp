@@ -7,6 +7,7 @@ TowerFreezer::TowerFreezer() :
 {
 	price = 150;
 	speed = 3;
+	damage = 0;
 }
 
 void TowerFreezer::upgrade()
@@ -37,10 +38,16 @@ std::string TowerFreezer::upgradeDescription()
 	return "Double la distance d'attaque";
 }
 
+std::string TowerFreezer::getDescription()
+{
+	return "Ralentit les ennemis";
+}
+
+
 std::string TowerFreezer::getName()
 {
 	if(upgraded)
-		return "Lanceur de givre ++";
+		return "Lanceur de givre longue portee";
 	else
 		return "Lanceur de givre";
 }

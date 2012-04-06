@@ -14,6 +14,7 @@ Enemy::Enemy(Map::Cell pos, Map map) :
 	pv = 150;
 	basePv = pv;
 	frozen = false;
+	poisoned = false;
 }
 
 void Enemy::render(sf::RenderTarget *target)
@@ -30,13 +31,14 @@ void Enemy::render(sf::RenderTarget *target)
 		if(pv < basePv)
 		{
 			// draw pv
+			sf::Color borderColor = poisoned ? sf::Color(120,200,80) : sf::Color::White;
 			sf::Shape border = sf::Shape::Rectangle(x - (Application::getInstance()->enemyImage.GetWidth()/2.f) - 8,
 																 y - (Application::getInstance()->enemyImage.GetHeight()) - 6,
 																 x - (Application::getInstance()->enemyImage.GetWidth()/2.f) + 8,
 																 y - (Application::getInstance()->enemyImage.GetHeight()) - 1,
 																 sf::Color(0,0,0,0),
 																 1.f,
-																 sf::Color::White
+																 borderColor
 																 );
 
 			float pw = ((float)pv/basePv) * 16;
@@ -50,6 +52,16 @@ void Enemy::render(sf::RenderTarget *target)
 			target->Draw(fill);
 			target->Draw(border);
 		}
+	}
+}
+
+void Enemy::tick()
+{
+	moveToNext();
+
+	if(poisoned)
+	{
+		hurt(0.1);
 	}
 }
 
@@ -77,7 +89,7 @@ void Enemy::moveToNext()
 	myMap.setVisited(current.posI, current.posJ, true);
 }
 
-void Enemy::hurt(int damage)
+void Enemy::hurt(float damage)
 {
 	if(!isDead())
 	{

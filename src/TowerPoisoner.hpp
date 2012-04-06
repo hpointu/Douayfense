@@ -1,15 +1,15 @@
-#ifndef TOWERFREEZER_HPP
-#define TOWERFREEZER_HPP
+#ifndef TOWERPOISONER_HPP
+#define TOWERPOISONER_HPP
 
 #include "Tower.hpp"
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "Enemy.hpp"
 
-class TowerFreezer : public Tower
+class TowerPoisoner : public Tower
 {
 public:
-	TowerFreezer();
+	TowerPoisoner();
 
 	virtual Tower* getCopy();
 	virtual void upgrade();
@@ -19,7 +19,6 @@ public:
 	virtual sf::Image* getImage();
 	virtual bool isValid(Enemy *e);
 	virtual Bullet* createBullet(float x, float y, Enemy *e, int damage);
-
 };
 
-#endif // TOWERFREEZER_HPP
+#endif // TOWERPOISONER_HPP

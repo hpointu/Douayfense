@@ -54,6 +54,11 @@ std::string Tower::upgradeDescription()
 	return "Augmente la vitesse d'attaque";
 }
 
+std::string Tower::getDescription()
+{
+	return "Blesse les ennemis";
+}
+
 std::string Tower::getName()
 {
 	if(upgraded)

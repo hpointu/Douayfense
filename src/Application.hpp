@@ -32,6 +32,7 @@ public:
 	sf::Image enemyImage;
 	sf::Image towerImage, towerImageUp;
 	sf::Image freezerImage, freezerImageUp;
+	sf::Image poisonerImage, poisonerImageUp;
 	int bank;
 	unsigned int currentWave;
 	int homePv;

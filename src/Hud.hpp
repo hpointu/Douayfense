@@ -21,7 +21,7 @@ private:
 	sf::Sprite moneySprite;
 	sf::Image moneyImage;
 
-	sf::String line1, line2, line3, line4, line5, line6;
+	sf::String line1, line2, line3, line4, line5, line6, line7;
 	sf::String money, wave, life;
 
 	bool infoTower;

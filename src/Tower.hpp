@@ -19,6 +19,7 @@ public:
 	virtual void upgrade();
 	virtual std::string upgradeDescription();
 	virtual std::string getName();
+	virtual std::string getDescription();
 	virtual int getValue(){ return 0.75*price; }
 	virtual int getPrice(){ return 1.f*price; }
 	virtual int getUpgradePrice(){ return 1.50*price; }
@@ -26,9 +27,9 @@ public:
 
 	unsigned int i,j;
 	bool selected;
-	int range;
+	float range;
 	int damage;
-	int speed;
+	float speed;
 	bool wrong;
 	bool upgraded;
 	bool active;

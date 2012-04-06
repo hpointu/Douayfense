@@ -12,22 +12,24 @@ public:
 	void render(sf::RenderTarget *target);
 
 	float x, y;
-	int pv;
+	float pv;
 	bool frozen;
+	bool poisoned;
 
-	void moveToNext();
+	void tick();
 	bool isDead();
 	bool atHome();
 
-	void hurt(int damage);
+	void hurt(float damage);
 
 private:
+	void moveToNext();
 	sf::Sprite sprite;
 	Map myMap;
 
 	float speed;
 
-	int basePv;
+	float basePv;
 };
 
 #endif // ENEMY_HPP
