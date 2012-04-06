@@ -33,6 +33,9 @@ public:
 	sf::Image towerImage, towerImageUp;
 	sf::Image freezerImage, freezerImageUp;
 	sf::Image poisonerImage, poisonerImageUp;
+
+	sf::Image grassImage;
+
 	int bank;
 	unsigned int currentWave;
 	int homePv;

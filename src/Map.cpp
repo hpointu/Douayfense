@@ -1,5 +1,6 @@
 #include "Map.hpp"
 #include "Const.hpp"
+#include "Application.hpp"
 
 Map::Map()
 {
@@ -24,16 +25,40 @@ void Map::render(sf::RenderTarget *target)
 		for(unsigned int j=0; j<width; j++)
 		{
 			Cell c = cells[i][j];
-			sf::Shape rect = sf::Shape::Rectangle(0,0,
-															  CELL_SIZE,CELL_SIZE,
-															  getColor(c.type),
-															  1.f, sf::Color::Black);
 
-			rect.SetPosition(sf::Vector2f(j*CELL_SIZE, i*CELL_SIZE));
+			if(c.type != Map::GROUND)
+			{
+				sf::Shape rect = sf::Shape::Rectangle(0,0,
+																  CELL_SIZE,CELL_SIZE,
+																  getColor(c.type),
+																  0.f, sf::Color::Black);
 
-			target->Draw(rect);
+				rect.SetPosition(sf::Vector2f(j*CELL_SIZE, i*CELL_SIZE));
+
+				target->Draw(rect);
+			}
 		}
 	}
+
+	for(unsigned int i=0; i<height; i++)
+	{
+		for(unsigned int j=0; j<width; j++)
+		{
+			Cell c = cells[i][j];
+
+			if(c.type == Map::GROUND)
+			{
+				sf::Sprite sp(Application::getInstance()->grassImage);
+				sp.SetPosition(j*CELL_SIZE -6,
+									i*CELL_SIZE -6);
+				target->Draw(sp);
+			}
+		}
+	}
+
+
+
+
 }
 
 bool Map::isVisited(unsigned int i, unsigned int j)

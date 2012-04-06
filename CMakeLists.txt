@@ -35,3 +35,5 @@ configure_file(res/img/poisoner_up.png img/poisoner_up.png COPYONLY)
 
 configure_file(res/img/money.png img/money.png COPYONLY)
 configure_file(res/img/bg.png img/bg.png COPYONLY)
+
+configure_file(res/img/grass.png img/grass.png COPYONLY)

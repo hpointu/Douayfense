@@ -20,6 +20,8 @@ Application::Application() :
 	poisonerImage.LoadFromFile("img/poisoner.png");
 	poisonerImageUp.LoadFromFile("img/poisoner_up.png");
 
+	grassImage.LoadFromFile("img/grass.png");
+
 	mouseMode = NORMAL;
 }
 
