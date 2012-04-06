@@ -108,6 +108,15 @@ void Hud::render(sf::RenderTarget *target)
 	target->Draw(tt1);
 	target->Draw(tt2);
 
+	if(Application::getInstance()->paused)
+	{
+		sf::String pausedString("Paused");
+		pausedString.SetColor(sf::Color::Red);
+		pausedString.SetPosition(10,10);
+		pausedString.SetSize(30);
+		target->Draw(pausedString);
+	}
+
 }
 
 

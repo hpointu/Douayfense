@@ -35,6 +35,7 @@ public:
 	int bank;
 	unsigned int currentWave;
 	int homePv;
+	bool paused;
 
 private:
 	Application();
@@ -62,7 +63,6 @@ private:
 	MouseMode mouseMode;
 
 	Tower *lastSelectedTower;
-	bool paused;
 
 	sf::Clock mainClock;
 
