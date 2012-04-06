@@ -158,7 +158,7 @@ void Application::run()
 				Map::Cell cell = gameMap.getCell(vcoords.x, vcoords.y);
 				if(e.MouseButton.Button == sf::Mouse::Left && mouseMode == TOWER_ADD)
 				{
-					if(cell.type != Map::ERROR)
+					if(cell.type != Map::ERR)
 					{
 						if(!ghostTower->wrong)
 						{
@@ -177,7 +177,7 @@ void Application::run()
 				}
 				else if(e.MouseButton.Button == sf::Mouse::Left && mouseMode == NORMAL)
 				{
-					if(cell.type != Map::ERROR)
+					if(cell.type != Map::ERR)
 					{
 						selectTowers(false);
 						hud->setTower(NULL);

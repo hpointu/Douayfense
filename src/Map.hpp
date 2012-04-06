@@ -15,7 +15,7 @@ public:
 		DOOR = 2,
 		HOME = 3,
 		ROCK = 4,
-		ERROR = 99
+		ERR = 99
 	};
 
 	struct Cell
