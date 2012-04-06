@@ -6,7 +6,7 @@ TowerFreezer::TowerFreezer() :
 	Tower()
 {
 	price = 150;
-	speed = 1;
+	speed = 3;
 }
 
 void TowerFreezer::upgrade()

@@ -12,7 +12,7 @@ std::string Level1::getFilename()
 
 int Level1::getBank()
 {
-	return 700;
+	return 800;
 }
 
 int Level1::getHomePv()
@@ -28,22 +28,22 @@ std::vector<Wave> Level1::getWaves()
 	int i;
 
 	// first wave
-	for(i=0; i<10; i++)
+	for(i=0; i<15; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1.f));
+	waves.push_back(Wave(&gameMap, 1.3f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 
 	// second wave
-	for(i=0; i<10; i++)
+	for(i=0; i<15; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.push_back(Wave(&gameMap, 1/1.f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 
 	// third wave
-	for(i=0; i<14; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
+	for(i=0; i<18; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
 	waves.push_back(Wave(&gameMap, 1/2.f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
@@ -66,6 +66,13 @@ std::vector<Wave> Level1::getWaves()
 	for(i=0; i<28; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/8.f));
+	waves.back().initStock(tmpStock);
+	tmpStock.clear();
+
+	// seventh wave
+	for(i=0; i<35; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
+	waves.push_back(Wave(&gameMap, 1/9.f));
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 

@@ -43,7 +43,7 @@ void Tower::upgrade()
 {
 	if(!upgraded)
 	{
-		speed *= 2;
+		speed *= 1.4;
 		upgraded = true;
 		sprite = sf::Sprite(*this->getImage());
 	}
@@ -51,7 +51,7 @@ void Tower::upgrade()
 
 std::string Tower::upgradeDescription()
 {
-	return "Double la vitesse d'attaque";
+	return "Augmente la vitesse d'attaque";
 }
 
 std::string Tower::getName()
