@@ -66,8 +66,15 @@ void Application::run()
 	finalText.SetPosition(260,300);
 	finalText.SetColor(sf::Color::Red);
 
+	sf::String waveText;
+	waveText.SetSize(25);
+	waveText.SetPosition(10,45);
+	waveText.SetColor(sf::Color::Red);
+
 	Level *lvl = new Level1();
 	initLevel(lvl);
+
+	sf::Clock waveMessageClock;
 
 	while(window->IsOpened())
 	{
@@ -208,6 +215,14 @@ void Application::run()
 				if(currentWave < waves.size())
 				{
 					Enemy *e = NULL;
+					if(waveMessageClock.GetElapsedTime() < 3)
+					{
+						waveText.SetText(waves[currentWave].message);
+					}
+					else
+					{
+						waveText.SetText("");
+					}
 					if(waves[currentWave].hasStock())
 					{
 						e = waves[currentWave].getNextEnemy();
@@ -223,6 +238,7 @@ void Application::run()
 						{
 							addMoney(waves[currentWave].value);
 							currentWave++;
+							waveMessageClock.Reset();
 						}
 					}
 				}
@@ -261,6 +277,8 @@ void Application::run()
 				finalText.SetText("Congratulations !");
 				window->Draw(finalText);
 			}
+
+			window->Draw(waveText);
 
 			// postprocess
 			manageAtHome();

@@ -5,6 +5,7 @@
 #include "Map.hpp"
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Wave
 {
@@ -17,6 +18,8 @@ public:
 	bool hasStock();
 
 	int value;
+
+	std::string message;
 
 private:
 	std::vector<Enemy> stock;
