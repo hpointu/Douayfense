@@ -23,6 +23,7 @@ add_executable(Douayfense ${MAIN_SOURCES})
 target_link_libraries(Douayfense ${mainLibs})
 
 configure_file(res/map/level1.map map/level1.map COPYONLY)
+configure_file(res/map/level2.map map/level2.map COPYONLY)
 
 configure_file(res/img/skel.png img/skel.png COPYONLY)
 

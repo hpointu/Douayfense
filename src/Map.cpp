@@ -106,7 +106,7 @@ Map::Cell Map::getCell(float x, float y)
 	unsigned int j = x/CELL_SIZE;
 
 	Cell err;
-	err.type = ERROR;
+	err.type = Map::ERR;
 
 	if(i<height && j<width)
 		return cells[i][j];

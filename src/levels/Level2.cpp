@@ -1,26 +1,26 @@
-#include "Level1.hpp"
+#include "Level2.hpp"
 
-Level1::Level1() :
+Level2::Level2() :
 	Level()
 {
 }
 
-std::string Level1::getFilename()
+std::string Level2::getFilename()
 {
-	return "map/level1.map";
+	return "map/level2.map";
 }
 
-int Level1::getBank()
+int Level2::getBank()
 {
-	return 800;
+	return 850;
 }
 
-int Level1::getHomePv()
+int Level2::getHomePv()
 {
 	return 5;
 }
 
-std::vector<Wave> Level1::getWaves()
+std::vector<Wave> Level2::getWaves()
 {
 	std::vector<Wave> waves;
 
@@ -32,69 +32,70 @@ std::vector<Wave> Level1::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
 	waves.push_back(Wave(&gameMap, 1.6f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 100;
+	waves.back().value = 150;
 	tmpStock.clear();
 
 	// wave 2
-	for(i=0; i<10; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/1.f));
+	for(i=0; i<12; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[1], gameMap));
+	waves.push_back(Wave(&gameMap, 1.4f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 100;
-	waves.back().message = "";
+	waves.back().value = 150;
+	waves.back().message = "Dans ton cul :)";
 	tmpStock.clear();
 
 	// wave 3
 	for(i=0; i<15; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
+		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
+	waves.push_back(Wave(&gameMap, 1.0f));
 	waves.back().initStock(tmpStock);
-	waves.back().message = "Prochain coup, ca vient du bas !";
+	waves.back().message = "";
 	waves.back().value = 150;
 	tmpStock.clear();
 
 	// wave 4
-	for(i=0; i<8; i++)
-		tmpStock.push_back(Enemy(gameMap.getDoors()[1], gameMap));
-	waves.push_back(Wave(&gameMap, 1/1.f));
-	waves.back().initStock(tmpStock);
-	waves.back().value = 100;
-	tmpStock.clear();
-
-	// wave 5
-	for(i=0; i<16; i++)
+	for(i=0; i<18; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.push_back(Wave(&gameMap, 1/3.f));
 	waves.back().initStock(tmpStock);
 	waves.back().value = 200;
 	tmpStock.clear();
 
-	// wave 6
+	// wave 5
 	for(i=0; i<20; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/4.f));
+	waves.push_back(Wave(&gameMap, 1/5.f));
+	waves.back().initStock(tmpStock);
+	waves.back().value = 150;
+	tmpStock.clear();
+
+	// wave 6
+	for(i=0; i<22; i++)
+		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
+	waves.push_back(Wave(&gameMap, 1/6.f));
 	waves.back().initStock(tmpStock);
 	waves.back().value = 200;
 	tmpStock.clear();
 
 	// wave 7
-	for(i=0; i<28; i++)
+	for(i=0; i<25; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/5.f));
-	waves.back().value = 300;
+	waves.push_back(Wave(&gameMap, 1/8.f));
+	waves.back().value = 250;
+	waves.back().message = "Tiens bon !";
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 
 	// wave 8
-	for(i=0; i<35; i++)
+	for(i=0; i<25; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/8.f));
+	waves.push_back(Wave(&gameMap, 1/10.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 350;
+	waves.back().value = 250;
 	tmpStock.clear();
 
 	// wave 9
-	for(i=0; i<45; i++)
+	for(i=0; i<30; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/10.f));
 	waves.back().initStock(tmpStock);

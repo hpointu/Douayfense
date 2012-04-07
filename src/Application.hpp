@@ -10,6 +10,7 @@
 #include "Hud.hpp"
 #include "Wave.hpp"
 #include "Level.hpp"
+#include "Menu.hpp"
 
 class Application : public Singleton<Application>
 {
@@ -40,11 +41,14 @@ public:
 	unsigned int currentWave;
 	int homePv;
 	bool paused;
+	sf::RenderWindow *window;
 
 private:
 	Application();
 	~Application();
 
+
+	void processEvents(const sf::Event &e);
 	void manageAtHome();
 
 	void selectTowers(bool val = false);
@@ -55,7 +59,6 @@ private:
 
 	Tower *createGhostFromKey(sf::Key::Code keyCode);
 
-	sf::RenderWindow *window;
 	Hud *hud;
 	sf::View gameView;
 	sf::View hudView;
@@ -67,8 +70,13 @@ private:
 	MouseMode mouseMode;
 
 	Tower *lastSelectedTower;
+	Tower *ghostTower;
 
 	sf::Clock mainClock;
+
+	Menu *menu;
+
+	bool over;
 
 
 };

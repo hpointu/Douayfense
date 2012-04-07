@@ -12,7 +12,7 @@ void Wave::initStock(const std::vector<Enemy> &list)
 	stock.clear();
 	stock = list;
 
-	value = 10*stock.size();
+//	value = 10*stock.size();
 }
 
 bool Wave::hasStock()
