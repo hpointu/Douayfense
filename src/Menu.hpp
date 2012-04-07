@@ -23,6 +23,8 @@ private:
 	bool visible;
 	Button bLvl1, bLvl2, bLvl3;
 
+	sf::Image bg, title;
+
 	static void initLevel1();
 	static void initLevel2();
 	static void initLevel3();

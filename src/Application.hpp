@@ -37,6 +37,8 @@ public:
 
 	sf::Image grassImage;
 
+	sf::Image buttonImage;
+
 	int bank;
 	unsigned int currentWave;
 	int homePv;

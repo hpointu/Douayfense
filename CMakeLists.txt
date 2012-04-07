@@ -24,6 +24,7 @@ target_link_libraries(Douayfense ${mainLibs})
 
 configure_file(res/map/level1.map map/level1.map COPYONLY)
 configure_file(res/map/level2.map map/level2.map COPYONLY)
+configure_file(res/map/level3.map map/level3.map COPYONLY)
 
 configure_file(res/img/skel.png img/skel.png COPYONLY)
 
@@ -35,6 +36,10 @@ configure_file(res/img/poisoner.png img/poisoner.png COPYONLY)
 configure_file(res/img/poisoner_up.png img/poisoner_up.png COPYONLY)
 
 configure_file(res/img/money.png img/money.png COPYONLY)
+configure_file(res/img/menubg.png img/menubg.png COPYONLY)
 configure_file(res/img/bg.png img/bg.png COPYONLY)
+configure_file(res/img/title.png img/title.png COPYONLY)
 
 configure_file(res/img/grass.png img/grass.png COPYONLY)
+
+configure_file(res/img/button.png img/button.png COPYONLY)

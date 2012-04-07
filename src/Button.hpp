@@ -10,7 +10,7 @@ class Button
 {
 public:
 	Button();
-	Button(float x1, float y1, float x2, float y2);
+	Button(float x, float y);
 
 	void render(sf::RenderTarget *target);
 
@@ -25,6 +25,8 @@ private:
 	bool hover;
 	sf::String text;
 	CallbackPtr callback;
+
+	sf::Sprite sprite;
 
 	static void nullCallback(){}
 

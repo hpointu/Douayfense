@@ -23,6 +23,8 @@ Application::Application() :
 
 	grassImage.LoadFromFile("img/grass.png");
 
+	buttonImage.LoadFromFile("img/button.png");
+
 	mouseMode = NORMAL;
 	ghostTower = NULL;
 
@@ -62,6 +64,10 @@ void Application::processEvents(const sf::Event &e)
 {
 	std::vector<Tower*>::iterator tit;
 
+	if(e.Type == sf::Event::KeyPressed && over)
+		menu->show();
+
+
 	if(e.Type == sf::Event::Closed)
 		window->Close();
 
@@ -97,9 +103,6 @@ void Application::processEvents(const sf::Event &e)
 		selectTowers(false);
 		hud->setTower(NULL);
 		lastSelectedTower = NULL;
-
-		if(over)
-			menu->show();
 	}
 
 	else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Space)
@@ -180,7 +183,7 @@ void Application::processEvents(const sf::Event &e)
 void Application::run()
 {
 	sf::WindowSettings settings;
-	settings.AntialiasingLevel = 2;
+	settings.AntialiasingLevel = 5;
 	window = new sf::RenderWindow(sf::VideoMode(W_WIDTH, W_HEIGHT, 8),
 											"Douayfense", sf::Style::Close, settings);
 

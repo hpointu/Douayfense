@@ -1,5 +1,6 @@
 #include "Button.hpp"
 #include <iostream>
+#include "Application.hpp"
 
 Button::Button()
 {
@@ -8,9 +9,9 @@ Button::Button()
 	callback = nullCallback;
 }
 
-Button::Button(float x1, float y1, float x2, float y2)
+Button::Button(float x, float y)
 {
-	rect = sf::FloatRect(x1, y1, x2, y2);
+	rect = sf::FloatRect(x, y, x+108, y+20);
 	hover = false;
 	callback = nullCallback;
 }
@@ -29,36 +30,40 @@ void Button::setText(const std::string &str)
 	sf::FloatRect tr = text.GetRect();
 
 	text.SetPosition( buttonCenter.x - ((tr.Right-tr.Left)/2.f),
-							buttonCenter.y - ((tr.Bottom-tr.Top)/2.f)
+							buttonCenter.y - ((tr.Bottom-tr.Top)/2.f) - 2
 							);
 }
 
 
 void Button::render(sf::RenderTarget *target)
 {
-	sf::Color textColor = sf::Color::White;
+	sprite = sf::Sprite(Application::getInstance()->buttonImage);
+	sf::Color textColor = sf::Color(230,230,200);
 	text.SetColor(textColor);
 
 	sf::Shape sh = sf::Shape::Rectangle(
 				rect.Left, rect.Top, rect.Right, rect.Bottom,
 				sf::Color(110,80,60), // brown
-				2.f,
+				1.f,
 				sf::Color(220,210,170)
 				);
 
+	sprite.SetPosition(rect.Left, rect.Top);
 
 
-	target->Draw(sh);
-	target->Draw(text);
+
+	target->Draw(sprite);
 
 	if(hover)
 	{
 		sf::Shape hollow = sf::Shape::Rectangle(
 					rect.Left, rect.Top, rect.Right, rect.Bottom,
-					sf::Color(0,255,0,30)
+					sf::Color(0,255, 255,30)
 					);
 		target->Draw(hollow);
 	}
+
+	target->Draw(text);
 }
 
 
