@@ -1,6 +1,7 @@
 #include "TowerFreezer.hpp"
 #include "Application.hpp"
 #include "FreezingBullet.hpp"
+#include "SoundManager.hpp"
 
 TowerFreezer::TowerFreezer() :
 	Tower()
@@ -59,5 +60,6 @@ bool TowerFreezer::isValid(Enemy *e)
 
 Bullet* TowerFreezer::createBullet(float x, float y, Enemy *e, int damage)
 {
+	SoundManager::getInstance()->playSound(Application::getInstance()->fireBuff, 70, 2.2f);
 	return new FreezingBullet(x,y,e,damage);
 }

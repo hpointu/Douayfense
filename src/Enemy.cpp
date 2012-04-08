@@ -1,4 +1,5 @@
 #include "Enemy.hpp"
+#include "SoundManager.hpp"
 #include "Application.hpp"
 #include "Const.hpp"
 #include <cmath>
@@ -15,6 +16,11 @@ Enemy::Enemy(Map::Cell pos, Map map) :
 	basePv = pv;
 	frozen = false;
 	poisoned = false;
+}
+
+Enemy::~Enemy()
+{
+
 }
 
 void Enemy::render(sf::RenderTarget *target)
@@ -89,6 +95,12 @@ void Enemy::moveToNext()
 	myMap.setVisited(current.posI, current.posJ, true);
 }
 
+void Enemy::win()
+{
+	pv = 0;
+	SoundManager::getInstance()->playSound(Application::getInstance()->dingBuff, 80, 2.f);
+}
+
 void Enemy::hurt(float damage)
 {
 	if(!isDead())
@@ -98,7 +110,10 @@ void Enemy::hurt(float damage)
 			pv = 0;
 
 		if(isDead())
+		{
+			SoundManager::getInstance()->playSound(Application::getInstance()->dyingBuff, 70, 1.f);
 			Application::getInstance()->addMoney(basePv/3);
+		}
 	}
 }
 

@@ -1,6 +1,7 @@
 #include "TowerPoisoner.hpp"
 #include "Application.hpp"
 #include "PoisoningBullet.hpp"
+#include "SoundManager.hpp"
 
 TowerPoisoner::TowerPoisoner() :
 	Tower()
@@ -59,5 +60,6 @@ bool TowerPoisoner::isValid(Enemy *e)
 
 Bullet* TowerPoisoner::createBullet(float x, float y, Enemy *e, int damage)
 {
+	SoundManager::getInstance()->playSound(Application::getInstance()->fireBuff, 70, 1.1f);
 	return new PoisoningBullet(x,y,e,damage);
 }

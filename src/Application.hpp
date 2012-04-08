@@ -5,6 +5,7 @@
 #include "Map.hpp"
 #include "Singleton.hpp"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "Tower.hpp"
 #include "Hud.hpp"
@@ -12,6 +13,7 @@
 #include "Level.hpp"
 #include "Menu.hpp"
 #include "PausableClock.hpp"
+#include "IngameMenu.hpp"
 
 class Application : public Singleton<Application>
 {
@@ -30,15 +32,22 @@ public:
 	void addMoney(int sum);
 
 	void initLevel(Level *level);
+	void reset();
+	void togglePause();
+	void setPaused();
 
+
+	// res
 	sf::Image enemyImage;
 	sf::Image towerImage, towerImageUp;
 	sf::Image freezerImage, freezerImageUp;
 	sf::Image poisonerImage, poisonerImageUp;
-
 	sf::Image grassImage;
-
 	sf::Image buttonImage;
+
+	sf::SoundBuffer dingBuff, dyingBuff, fireBuff;
+	sf::SoundBuffer buildBuff, moneyBuff;
+
 
 	int bank;
 	unsigned int currentWave;
@@ -81,6 +90,7 @@ private:
 	sf::Clock mainClock;
 
 	Menu *menu;
+	IngameMenu *ingameMenu;
 
 	bool over;
 

@@ -43,3 +43,17 @@ configure_file(res/img/title.png img/title.png COPYONLY)
 configure_file(res/img/grass.png img/grass.png COPYONLY)
 
 configure_file(res/img/button.png img/button.png COPYONLY)
+
+configure_file(res/music/menu.ogg music/menu.ogg COPYONLY)
+configure_file(res/music/ending.ogg music/ending.ogg COPYONLY)
+configure_file(res/music/village.ogg music/village.ogg COPYONLY)
+configure_file(res/music/ancients.ogg music/ancients.ogg COPYONLY)
+configure_file(res/music/direnews.ogg music/direnews.ogg COPYONLY)
+configure_file(res/music/dreaming.ogg music/dreaming.ogg COPYONLY)
+configure_file(res/music/procession.ogg music/procession.ogg COPYONLY)
+
+configure_file(res/snd/ding.ogg snd/ding.ogg COPYONLY)
+configure_file(res/snd/dying.ogg snd/dying.ogg COPYONLY)
+configure_file(res/snd/fire.ogg snd/fire.ogg COPYONLY)
+configure_file(res/snd/build.ogg snd/build.ogg COPYONLY)
+configure_file(res/snd/money.ogg snd/money.ogg COPYONLY)

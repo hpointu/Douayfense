@@ -8,6 +8,7 @@ class Enemy
 {
 public:
 	Enemy(Map::Cell pos, Map map);
+	~Enemy();
 
 	void render(sf::RenderTarget *target);
 
@@ -21,11 +22,13 @@ public:
 	bool atHome();
 
 	void hurt(float damage);
+	void win();
 
 private:
 	void moveToNext();
 	sf::Sprite sprite;
 	Map myMap;
+
 
 	float speed;
 

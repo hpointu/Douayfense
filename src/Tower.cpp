@@ -1,5 +1,6 @@
 #include "Tower.hpp"
 #include "Application.hpp"
+#include "SoundManager.hpp"
 #include "Const.hpp"
 
 #include <cmath>
@@ -119,6 +120,7 @@ void Tower::render(sf::RenderTarget *target, bool ghost)
 
 Bullet* Tower::createBullet(float x, float y, Enemy *e, int damage)
 {
+	SoundManager::getInstance()->playSound(Application::getInstance()->fireBuff, 70, 1.5f);
 	return new Bullet(x,y,e,damage);
 }
 

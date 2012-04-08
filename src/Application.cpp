@@ -6,6 +6,7 @@
 #include "TowerPoisoner.hpp"
 #include "levels/Level1.hpp"
 #include "levels/Level2.hpp"
+#include "SoundManager.hpp"
 
 Application::Application() :
 	homePv(5)
@@ -25,14 +26,26 @@ Application::Application() :
 
 	buttonImage.LoadFromFile("img/button.png");
 
+	dingBuff.LoadFromFile("snd/ding.ogg");
+	dyingBuff.LoadFromFile("snd/dying.ogg");
+	fireBuff.LoadFromFile("snd/fire.ogg");
+	buildBuff.LoadFromFile("snd/build.ogg");
+	moneyBuff.LoadFromFile("snd/money.ogg");
+
 	mouseMode = NORMAL;
 	ghostTower = NULL;
 
 	menu = Menu::getInstance();
+	ingameMenu = IngameMenu::getInstance();
 }
 
 Application::~Application()
 {
+}
+
+void Application::reset()
+{
+	menu->show();
 }
 
 void Application::initLevel(Level *level)
@@ -59,15 +72,14 @@ void Application::initLevel(Level *level)
 	// init view
 	gameView = sf::View(sf::Vector2f( gameMap.width*CELL_SIZE/2.f, 56+(gameMap.height*CELL_SIZE/2.f) ),
 							  sf::Vector2f( W_WIDTH/2.f, W_HEIGHT/2.f ));
+
+	// play music
+	SoundManager::getInstance()->playMusic();
 }
 
 void Application::processEvents(const sf::Event &e)
 {
 	std::vector<Tower*>::iterator tit;
-
-	if(e.Type == sf::Event::KeyPressed && over)
-		menu->show();
-
 
 	if(e.Type == sf::Event::Closed)
 		window->Close();
@@ -86,6 +98,11 @@ void Application::processEvents(const sf::Event &e)
 					|| e.Key.Code == sf::Key::Z
 					|| e.Key.Code == sf::Key::E))
 	{
+		if(mouseMode == TOWER_ADD)
+		{
+			delete ghostTower; ghostTower = NULL;
+			mouseMode = NORMAL;
+		}
 		if(mouseMode != TOWER_ADD)
 		{
 			ghostTower = createGhostFromKey(e.Key.Code);
@@ -97,7 +114,14 @@ void Application::processEvents(const sf::Event &e)
 	}
 	else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Escape)
 	{
-		if(mouseMode == TOWER_ADD)
+		if(mouseMode == NORMAL && lastSelectedTower == NULL)
+		{
+			// display ingame-menu
+			ingameMenu->show();
+
+			setPaused();
+		}
+		else if(mouseMode == TOWER_ADD)
 		{
 			delete ghostTower; ghostTower = NULL;
 			mouseMode = NORMAL;
@@ -109,11 +133,7 @@ void Application::processEvents(const sf::Event &e)
 
 	else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Space)
 	{
-		paused = !paused;
-		if(paused)
-			gameClock.Pause();
-		else
-			gameClock.Play();
+		togglePause();
 	}
 
 	else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::U)
@@ -124,6 +144,7 @@ void Application::processEvents(const sf::Event &e)
 			{
 				lastSelectedTower->upgrade();
 				hud->setTower(lastSelectedTower);
+				SoundManager::getInstance()->playSound(buildBuff, 60, 1.6f);
 			}
 		}
 	}
@@ -137,6 +158,7 @@ void Application::processEvents(const sf::Event &e)
 			selectTowers(false);
 			hud->setTower(NULL);
 			lastSelectedTower = NULL;
+			SoundManager::getInstance()->playSound(moneyBuff, 60, 1.0f);
 		}
 	}
 
@@ -159,6 +181,7 @@ void Application::processEvents(const sf::Event &e)
 						towers.back()->selected = true;
 						lastSelectedTower = towers.back();
 						hud->setTower(lastSelectedTower);
+						SoundManager::getInstance()->playSound(buildBuff, 60, 1.1f);
 					}
 				}
 			}
@@ -218,9 +241,17 @@ void Application::run()
 		{
 			if(menu->isVisible())
 				menu->processEvents(e);
+			else if(ingameMenu->isVisible())
+				ingameMenu->processEvents(e);
 			else
 				processEvents(e);
 		}
+
+		// playing music
+		if(menu->isVisible())
+			SoundManager::getInstance()->playMenuMusic();
+		else if(!over)
+			SoundManager::getInstance()->runningMusic();
 
 		if(mainClock.GetElapsedTime() > 1.f/60.f)
 		{
@@ -309,6 +340,7 @@ void Application::run()
 					finalText.SetText("Congratulations !");
 					window->Draw(finalText);
 					over = true;
+					SoundManager::getInstance()->playEndingMusic();
 				}
 
 				window->Draw(waveText);
@@ -316,6 +348,11 @@ void Application::run()
 				// postprocess
 				manageAtHome();
 			} //// END GAME
+
+			if(ingameMenu->isVisible())
+			{
+				ingameMenu->render(window);
+			}
 
 			window->Display();
 		}
@@ -397,6 +434,21 @@ void Application::addMoney(int sum)
 	bank += sum;
 }
 
+void Application::togglePause()
+{
+	paused = !paused;
+	if(paused)
+		gameClock.Pause();
+	else
+		gameClock.Play();
+}
+
+void Application::setPaused()
+{
+	if(!paused)
+		togglePause();
+}
+
 void Application::manageAtHome()
 {
 	std::vector<Enemy*>::iterator eit;
@@ -405,8 +457,7 @@ void Application::manageAtHome()
 		if(!(*eit)->isDead() && (*eit)->atHome())
 		{
 			homePv--;
-			//			enemies.erase(eit);
-			(*eit)->pv = 0;
+			(*eit)->win();
 		}
 	}
 }
