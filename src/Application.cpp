@@ -114,7 +114,7 @@ void Application::processEvents(const sf::Event &e)
 	}
 	else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Escape)
 	{
-		if(mouseMode == NORMAL && lastSelectedTower == NULL)
+		if((mouseMode == NORMAL && lastSelectedTower == NULL) || over)
 		{
 			// display ingame-menu
 			ingameMenu->show();
