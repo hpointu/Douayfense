@@ -11,6 +11,7 @@
 #include "Wave.hpp"
 #include "Level.hpp"
 #include "Menu.hpp"
+#include "PausableClock.hpp"
 
 class Application : public Singleton<Application>
 {
@@ -43,6 +44,7 @@ public:
 	unsigned int currentWave;
 	int homePv;
 	bool paused;
+	PausableClock gameClock;
 	sf::RenderWindow *window;
 
 private:
@@ -56,6 +58,8 @@ private:
 	void selectTowers(bool val = false);
 
 	bool towerOnCell(const Map::Cell &c);
+
+//	void sellTower(const Map::Cell &c);
 
 	int nbAlive();
 

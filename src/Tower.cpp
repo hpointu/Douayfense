@@ -17,6 +17,8 @@ Tower::Tower() :
 	upgraded = false;
 	active = true;
 	lastShot = 0.f;
+
+	clock = &Application::getInstance()->gameClock;
 }
 
 sf::Image* Tower::getImage()
@@ -129,7 +131,7 @@ void Tower::shoot(std::vector<Enemy*> enemies)
 {
 	if(active)
 	{
-		if(clock.GetElapsedTime() - lastShot >= 2.f/speed)
+		if(clock->GetElapsedTime() - lastShot >= 2.f/speed)
 		{
 			sf::Vector2f center(j*CELL_SIZE + (CELL_SIZE/2.f), i*CELL_SIZE + (CELL_SIZE/2.f));
 			std::vector<Enemy*>::iterator it;
@@ -141,7 +143,7 @@ void Tower::shoot(std::vector<Enemy*> enemies)
 				float dist = ::sqrt((dx*dx) + (dy*dy));
 				if(dist <= range)
 				{
-					lastShot = clock.GetElapsedTime();
+					lastShot = clock->GetElapsedTime();
 					if(!e->isDead() && isValid(e))
 					{
 						bullets.push_back(this->createBullet(center.x, center.y, e, damage));

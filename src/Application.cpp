@@ -47,6 +47,7 @@ void Application::initLevel(Level *level)
 	over = false;
 	currentWave = 0;
 	mainClock.Reset();
+	gameClock.Reset();
 
 	// level information
 	level->init();
@@ -88,6 +89,7 @@ void Application::processEvents(const sf::Event &e)
 		if(mouseMode != TOWER_ADD)
 		{
 			ghostTower = createGhostFromKey(e.Key.Code);
+			ghostTower->wrong = true;
 			mouseMode = TOWER_ADD;
 			selectTowers(true);
 			hud->setTower(ghostTower, true);
@@ -108,6 +110,10 @@ void Application::processEvents(const sf::Event &e)
 	else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::Space)
 	{
 		paused = !paused;
+		if(paused)
+			gameClock.Pause();
+		else
+			gameClock.Play();
 	}
 
 	else if(e.Type == sf::Event::KeyPressed && e.Key.Code == sf::Key::U)
@@ -167,7 +173,7 @@ void Application::processEvents(const sf::Event &e)
 				for(tit=towers.begin(); tit!=towers.end(); tit++)
 				{
 					Tower *t = *tit;
-					if(t->i == cell.posI && t->j == cell.posJ)
+					if(t->i == cell.posI && t->j == cell.posJ && t->active)
 					{
 						t->selected = true;
 						lastSelectedTower = t;
@@ -370,7 +376,7 @@ bool Application::towerOnCell(const Map::Cell &c)
 	std::vector<Tower*>::iterator tit;
 	for(tit=towers.begin(); tit!=towers.end(); tit++)
 	{
-		if((*tit)->i == c.posI && (*tit)->j == c.posJ)
+		if((*tit)->i == c.posI && (*tit)->j == c.posJ && (*tit)->active)
 		{
 			return true;
 		}

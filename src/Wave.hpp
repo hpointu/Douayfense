@@ -6,6 +6,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "PausableClock.hpp"
 
 class Wave
 {
@@ -23,7 +24,7 @@ public:
 
 private:
 	std::vector<Enemy> stock;
-	sf::Clock clock;
+	PausableClock *clock;
 	Map *gameMap;
 	float freq;
 	float lastToken;
