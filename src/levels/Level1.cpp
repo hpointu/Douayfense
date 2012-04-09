@@ -12,7 +12,7 @@ std::string Level1::getFilename()
 
 int Level1::getBank()
 {
-	return 800;
+	return 1000;
 }
 
 int Level1::getHomePv()
@@ -32,7 +32,10 @@ std::vector<Wave> Level1::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
 	waves.push_back(Wave(&gameMap, 1.8f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 250;
+	waves.back().value = 300;
+	waves.back().message = "La touche ESPACE permet de mettre en pause.\n"
+			"Les touches A,Z,E permettent d'acheter des tours.";
+
 	tmpStock.clear();
 
 	// wave 2
@@ -40,7 +43,7 @@ std::vector<Wave> Level1::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
 	waves.push_back(Wave(&gameMap, 1.5f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 200;
+	waves.back().value = 250;
 	waves.back().message = "Les ennemis pourraient arriver du bas...";
 	tmpStock.clear();
 

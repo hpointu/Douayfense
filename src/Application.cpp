@@ -64,6 +64,7 @@ void Application::initLevel(Level *level)
 	currentWave = 0;
 	mainClock.Reset();
 	gameClock.Reset();
+	waveMessageClock.Reset();
 
 	// level information
 	level->init();
@@ -227,7 +228,6 @@ void Application::run()
 	finalText.SetColor(sf::Color::Red);
 
 	sf::String waveText;
-	sf::Clock waveMessageClock;
 
 	while(window->IsOpened())
 	{
@@ -276,7 +276,7 @@ void Application::run()
 					if(currentWave < waves.size())
 					{
 						Enemy *e = NULL;
-						if(waveMessageClock.GetElapsedTime() < 3)
+						if(waveMessageClock.GetElapsedTime() < 4)
 						{
 							waveText.SetText(waves[currentWave].message);
 						}

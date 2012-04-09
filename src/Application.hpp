@@ -88,6 +88,7 @@ private:
 	Tower *ghostTower;
 
 	sf::Clock mainClock;
+	sf::Clock waveMessageClock;
 
 	Menu *menu;
 	IngameMenu *ingameMenu;
