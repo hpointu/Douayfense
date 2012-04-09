@@ -43,6 +43,9 @@ configure_file(res/img/title.png img/title.png COPYONLY)
 configure_file(res/img/grass.png img/grass.png COPYONLY)
 
 configure_file(res/img/button.png img/button.png COPYONLY)
+configure_file(res/img/dialog-information.png img/dialog-information.png COPYONLY)
+configure_file(res/img/crown.png img/crown.png COPYONLY)
+configure_file(res/img/skull.png img/skull.png COPYONLY)
 
 configure_file(res/music/menu.ogg music/menu.ogg COPYONLY)
 configure_file(res/music/ending.ogg music/ending.ogg COPYONLY)

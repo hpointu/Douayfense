@@ -25,6 +25,9 @@ Application::Application() :
 	grassImage.LoadFromFile("img/grass.png");
 
 	buttonImage.LoadFromFile("img/button.png");
+	tipImage.LoadFromFile("img/dialog-information.png");
+	crownImage.LoadFromFile("img/crown.png");
+	skullImage.LoadFromFile("img/skull.png");
 
 	dingBuff.LoadFromFile("snd/ding.ogg");
 	dyingBuff.LoadFromFile("snd/dying.ogg");
@@ -224,10 +227,6 @@ void Application::run()
 	finalText.SetColor(sf::Color::Red);
 
 	sf::String waveText;
-	waveText.SetSize(25);
-	waveText.SetPosition(10,45);
-	waveText.SetColor(sf::Color::Red);
-
 	sf::Clock waveMessageClock;
 
 	while(window->IsOpened())
@@ -332,18 +331,66 @@ void Application::run()
 				if(homePv < 1)
 				{
 					finalText.SetText("GAME OVER!");
+
+					finalText.SetColor(sf::Color::White);
+					finalText.SetSize(30);
+
+					sf::FloatRect box = finalText.GetRect();
+					sf::Shape boxBorder = sf::Shape::Rectangle(box.Left-8, box.Top-45, box.Right+8, box.Bottom+8,
+																					sf::Color(0,0,0,150),
+																					1.f, sf::Color(0,0,0));
+
+					sf::Sprite skull(skullImage);
+					skull.SetPosition((box.Right-box.Left)/2.f + box.Left - 20, box.Top-40 );
+
+					window->Draw(boxBorder);
+					window->Draw(skull);
 					window->Draw(finalText);
 					over = true;
 				}
 				else if(currentWave >= waves.size())
 				{
 					finalText.SetText("Congratulations !");
+
+					finalText.SetColor(sf::Color::White);
+					finalText.SetSize(30);
+
+					sf::FloatRect box = finalText.GetRect();
+					sf::Shape boxBorder = sf::Shape::Rectangle(box.Left-8, box.Top-45, box.Right+8, box.Bottom+8,
+																					sf::Color(0,0,0,150),
+																					1.f, sf::Color(0,0,0));
+
+					sf::Sprite crown(crownImage);
+					crown.SetPosition((box.Right-box.Left)/2.f + box.Left - 20, box.Top-40 );
+
+					window->Draw(boxBorder);
+					window->Draw(crown);
 					window->Draw(finalText);
 					over = true;
 					SoundManager::getInstance()->playEndingMusic();
 				}
 
-				window->Draw(waveText);
+				if(std::string(waveText.GetText()) != "")
+				{
+
+					waveText.SetColor(sf::Color::Yellow);
+					waveText.SetSize(12);
+					waveText.SetPosition(40,45);
+
+					sf::FloatRect tRect = waveText.GetRect();
+					sf::Shape waveTextBorder = sf::Shape::Rectangle(tRect.Left-25, tRect.Top-4, tRect.Right+3, tRect.Bottom+5,
+																					sf::Color(0,0,0,150),
+																					1.f, sf::Color(200,200,200));
+
+					sf::Sprite starSprite(tipImage);
+					starSprite.SetPosition(20,45);
+
+					window->Draw(waveTextBorder);
+					window->Draw(starSprite);
+
+
+					window->Draw(waveText);
+				}
 
 				// postprocess
 				manageAtHome();

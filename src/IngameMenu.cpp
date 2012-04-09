@@ -36,7 +36,7 @@ void IngameMenu::render(sf::RenderTarget *target)
 {
 	sf::Shape bg = sf::Shape::Rectangle(0, 0,
 													W_WIDTH, W_HEIGHT,
-													sf::Color(100,100,100,100));
+													sf::Color(100,100,100,120));
 	target->Draw(bg);
 
 	sf::Shape sh = sf::Shape::Rectangle(290, 210,
