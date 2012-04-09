@@ -30,7 +30,7 @@ std::vector<Wave> Level3::getWaves()
 	// wave 1
 	for(i=0; i<10; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1.6f));
+	waves.push_back(Wave(&gameMap, 1.0f));
 	waves.back().initStock(tmpStock);
 	waves.back().value = 100;
 	tmpStock.clear();
@@ -38,35 +38,36 @@ std::vector<Wave> Level3::getWaves()
 	// wave 2
 	for(i=0; i<10; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/1.f));
+	waves.push_back(Wave(&gameMap, 1/3.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 100;
+	waves.back().value = 150;
 	waves.back().message = "";
 	tmpStock.clear();
 
 	// wave 3
 	for(i=0; i<15; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.push_back(Wave(&gameMap, 1/4.f));
 	waves.back().initStock(tmpStock);
 	waves.back().message = "Courage :)";
-	waves.back().value = 150;
+	waves.back().value = 190;
 	tmpStock.clear();
 
 	// wave 4
 	for(i=0; i<8; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[1], gameMap));
-	waves.push_back(Wave(&gameMap, 1/1.f));
+	waves.push_back(Wave(&gameMap, 1/2.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 100;
+	waves.back().message = "Attention !";
+	waves.back().value = 120;
 	tmpStock.clear();
 
 	// wave 5
 	for(i=0; i<16; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
-	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.push_back(Wave(&gameMap, 1/3.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 200;
+	waves.back().value = 150;
 	tmpStock.clear();
 
 	// wave 6
@@ -74,14 +75,14 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/4.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 200;
+	waves.back().value = 150;
 	tmpStock.clear();
 
 	// wave 7
 	for(i=0; i<28; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/5.f));
-	waves.back().value = 300;
+	waves.back().value = 200;
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 
@@ -90,7 +91,7 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/8.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 350;
+	waves.back().value = 200;
 	tmpStock.clear();
 
 	// wave 9
