@@ -11,7 +11,7 @@ Tower::Tower() :
 	range(80),
 	damage(25),
 	speed(3),
-	price(200)
+	price(250)
 {
 	sprite = sf::Sprite(*this->getImage());
 	wrong = false;
@@ -46,7 +46,7 @@ void Tower::upgrade()
 {
 	if(!upgraded)
 	{
-		speed *= 1.4;
+		speed *= 3;
 		upgraded = true;
 		sprite = sf::Sprite(*this->getImage());
 	}

@@ -9,6 +9,7 @@ TowerFreezer::TowerFreezer() :
 	price = 150;
 	speed = 3;
 	damage = 0;
+	range = 90;
 }
 
 void TowerFreezer::upgrade()

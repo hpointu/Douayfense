@@ -32,7 +32,7 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
 	waves.push_back(Wave(&gameMap, 1.0f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 100;
+	waves.back().value = 150;
 	tmpStock.clear();
 
 	// wave 2
@@ -40,7 +40,7 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[0], gameMap));
 	waves.push_back(Wave(&gameMap, 1/3.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 150;
+	waves.back().value = 180;
 	waves.back().message = "";
 	tmpStock.clear();
 
@@ -50,7 +50,7 @@ std::vector<Wave> Level3::getWaves()
 	waves.push_back(Wave(&gameMap, 1/4.f));
 	waves.back().initStock(tmpStock);
 	waves.back().message = "Courage :)";
-	waves.back().value = 190;
+	waves.back().value = 150;
 	tmpStock.clear();
 
 	// wave 4
@@ -59,7 +59,7 @@ std::vector<Wave> Level3::getWaves()
 	waves.push_back(Wave(&gameMap, 1/2.f));
 	waves.back().initStock(tmpStock);
 	waves.back().message = "Attention !";
-	waves.back().value = 120;
+	waves.back().value = 100;
 	tmpStock.clear();
 
 	// wave 5
@@ -67,7 +67,7 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/3.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 150;
+	waves.back().value = 60;
 	tmpStock.clear();
 
 	// wave 6
@@ -75,14 +75,14 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/4.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 150;
+	waves.back().value = 70;
 	tmpStock.clear();
 
 	// wave 7
 	for(i=0; i<28; i++)
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/5.f));
-	waves.back().value = 200;
+	waves.back().value = 70;
 	waves.back().initStock(tmpStock);
 	tmpStock.clear();
 
@@ -91,7 +91,7 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(Enemy(gameMap.getDoors()[i%2], gameMap));
 	waves.push_back(Wave(&gameMap, 1/8.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 200;
+	waves.back().value = 50;
 	tmpStock.clear();
 
 	// wave 9

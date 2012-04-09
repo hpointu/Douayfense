@@ -9,6 +9,7 @@ TowerPoisoner::TowerPoisoner() :
 	price = 260;
 	speed = 3;
 	damage = 15;
+	range = 90;
 }
 
 void TowerPoisoner::upgrade()

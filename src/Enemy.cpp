@@ -67,7 +67,7 @@ void Enemy::tick()
 
 	if(poisoned)
 	{
-		hurt(0.13);
+		hurt(0.15);
 	}
 }
 
@@ -112,7 +112,7 @@ void Enemy::hurt(float damage)
 		if(isDead())
 		{
 			SoundManager::getInstance()->playSound(Application::getInstance()->dyingBuff, 70, 1.f);
-			Application::getInstance()->addMoney(basePv/3);
+			Application::getInstance()->addMoney(basePv/4.f);
 		}
 	}
 }
