@@ -8,7 +8,7 @@ FreezingBullet::FreezingBullet(float x, float y, Enemy *e, int damage) :
 
 void FreezingBullet::applyDamage()
 {
-	enemy->frozen = true;
+	enemy->freezeMe();
 	dead = true;
 }
 

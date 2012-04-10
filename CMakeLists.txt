@@ -27,6 +27,8 @@ configure_file(res/map/level2.map map/level2.map COPYONLY)
 configure_file(res/map/level3.map map/level3.map COPYONLY)
 
 configure_file(res/img/skel.png img/skel.png COPYONLY)
+configure_file(res/img/goblin.png img/goblin.png COPYONLY)
+configure_file(res/img/drake.png img/drake.png COPYONLY)
 
 configure_file(res/img/tower.png img/tower.png COPYONLY)
 configure_file(res/img/tower_up.png img/tower_up.png COPYONLY)

@@ -3,7 +3,6 @@
 
 #include "Map.hpp"
 #include <SFML/Graphics.hpp>
-
 class Enemy
 {
 public:
@@ -24,15 +23,30 @@ public:
 	void hurt(float damage);
 	void win();
 
+	inline float getSpeed(){ return speed; }
+
+	virtual sf::Image* getImage();
+	virtual void applyPoison();
+	virtual float getRealSpeed();
+
+	virtual void freezeMe();
+
+	virtual Enemy* createClone();
+	virtual int getValue();
+
+	virtual float getInitialPv();
+	virtual void playDyingSound();
+
+	void init();
+
 private:
 	void moveToNext();
 	sf::Sprite sprite;
 	Map myMap;
 
 
+protected:
 	float speed;
-
-	float basePv;
 };
 
 #endif // ENEMY_HPP

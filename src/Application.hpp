@@ -38,7 +38,7 @@ public:
 
 
 	// res
-	sf::Image enemyImage;
+	sf::Image skelImage, goblinImage, drakeImage;
 	sf::Image towerImage, towerImageUp;
 	sf::Image freezerImage, freezerImageUp;
 	sf::Image poisonerImage, poisonerImageUp;

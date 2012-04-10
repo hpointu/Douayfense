@@ -77,7 +77,7 @@ void Tower::render(sf::RenderTarget *target, bool ghost)
 		sprite = sf::Sprite(*this->getImage());
 		sf::Vector2f center(j*CELL_SIZE + (CELL_SIZE/2.f), i*CELL_SIZE + (CELL_SIZE/2.f));
 		sprite.SetPosition(j*CELL_SIZE,
-								 i*CELL_SIZE - (this->getImage()->GetHeight()/2.5f)
+								 i*CELL_SIZE - (this->getImage()->GetHeight()/2.5f -6)
 								 );
 
 		if(ghost)

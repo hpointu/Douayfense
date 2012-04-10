@@ -9,7 +9,7 @@ Wave::Wave(Map *map, float freq) :
 	clock = &Application::getInstance()->gameClock;
 }
 
-void Wave::initStock(const std::vector<Enemy> &list)
+void Wave::initStock(const std::vector<Enemy*> &list)
 {
 	stock.clear();
 	stock = list;
@@ -28,7 +28,7 @@ Enemy* Wave::getNextEnemy()
 
 	if(hasStock() && clock->GetElapsedTime()-lastToken >= freq)
 	{
-		e = new Enemy(stock.front());
+		e = stock.front()->createClone();
 		stock.erase(stock.begin());
 		lastToken = clock->GetElapsedTime();
 	}

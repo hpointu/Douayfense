@@ -12,7 +12,7 @@ class Wave
 {
 public:
 	Wave(Map *map, float freq);
-	virtual void initStock(const std::vector<Enemy> &list);
+	virtual void initStock(const std::vector<Enemy*> &list);
 
 	Enemy* getNextEnemy();
 
@@ -23,7 +23,7 @@ public:
 	std::string message;
 
 private:
-	std::vector<Enemy> stock;
+	std::vector<Enemy*> stock;
 	PausableClock *clock;
 	Map *gameMap;
 	float freq;

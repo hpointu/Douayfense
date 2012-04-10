@@ -11,7 +11,9 @@
 Application::Application() :
 	homePv(5)
 {
-	enemyImage.LoadFromFile("img/skel.png");
+	skelImage.LoadFromFile("img/skel.png");
+	goblinImage.LoadFromFile("img/goblin.png");
+	drakeImage.LoadFromFile("img/drake.png");
 
 	towerImage.LoadFromFile("img/tower.png");
 	towerImageUp.LoadFromFile("img/tower_up.png");
@@ -289,6 +291,7 @@ void Application::run()
 							e = waves[currentWave].getNextEnemy();
 							if(e)
 							{
+								e->init();
 								enemies.push_back(e);
 							}
 						}
@@ -314,11 +317,11 @@ void Application::run()
 				window->SetView(gameView);
 				gameMap.render(window);
 
-				for(eit=enemies.begin(); eit!=enemies.end(); eit++)
-					(*eit)->render(window);
-
 				for(tit=towers.begin(); tit!=towers.end(); tit++)
 					(*tit)->render(window);
+
+				for(eit=enemies.begin(); eit!=enemies.end(); eit++)
+					(*eit)->render(window);
 
 				if(ghostTower)
 					ghostTower->render(window, true);
