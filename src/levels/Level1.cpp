@@ -42,17 +42,6 @@ std::vector<Wave> Level1::getWaves()
 	tmpStock.clear();
 
 	// wave 2
-	for(i=0; i<8; i++)
-	{
-		tmpStock.push_back(new Enemy(gameMap.getDoors()[0], gameMap));
-	}
-	waves.push_back(Wave(&gameMap, 1.4f));
-	waves.back().initStock(tmpStock);
-	waves.back().value = 300;
-	waves.back().message = "";
-	tmpStock.clear();
-
-	// wave 3
 	for(i=0; i<10; i++)
 	{
 		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
@@ -63,19 +52,23 @@ std::vector<Wave> Level1::getWaves()
 	waves.back().message = "Les gobelins sont rapides, mais peu resistants aux attaques.";
 	tmpStock.clear();
 
-	// wave 4
+	// wave 3
+	for(i=0; i<5; i++)
+	{
+		tmpStock.push_back(new Enemy(gameMap.getDoors()[0], gameMap));
+	}
 	for(i=0; i<5; i++)
 	{
 		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
-		tmpStock.push_back(new Enemy(gameMap.getDoors()[0], gameMap));
+		tmpStock.back()->waveWait = 1/3.f;
 	}
-	waves.push_back(Wave(&gameMap, 1/2.f));
+	waves.push_back(Wave(&gameMap, 1/1.f));
 	waves.back().initStock(tmpStock);
 	waves.back().value = 300;
 	waves.back().message = "";
 	tmpStock.clear();
 
-	// wave 5
+	// wave 4
 	for(i=0; i<4; i++)
 	{
 		tmpStock.push_back(new Drake(gameMap.getDoors()[0], gameMap));
@@ -87,21 +80,27 @@ std::vector<Wave> Level1::getWaves()
 			"Ils sont solides et robustes, mais se deplacent tres lentement.";
 	tmpStock.clear();
 
-	// wave 6
+	// wave 5
 	tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
-	for(i=0; i<10; i++)
+	for(i=0; i<8; i++)
 		tmpStock.push_back(new Enemy(gameMap.getDoors()[0], gameMap));
-	waves.push_back(Wave(&gameMap, 1.5f));
+	for(i=0; i<5; i++)
+	{
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
+		tmpStock.back()->waveWait = 1/4.f;
+	}
+	waves.push_back(Wave(&gameMap, 1.3f));
 	waves.back().initStock(tmpStock);
 	waves.back().value = 250;
 	waves.back().message = "Les ennemis pourraient arriver du bas...";
 	tmpStock.clear();
 
-	// wave 7
+	// wave 6
 	for(i=0; i<3; i++)
 	{
-		tmpStock.push_back(new Enemy(gameMap.getDoors()[0], gameMap));
+		tmpStock.push_back(new Enemy(gameMap.getDoors()[0], gameMap));		
 		tmpStock.push_back(new Drake(gameMap.getDoors()[0], gameMap));
+		tmpStock.back()->waveWait = 1/4.f;
 		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
 	}
 	waves.push_back(Wave(&gameMap, 1/1.f));
@@ -110,7 +109,7 @@ std::vector<Wave> Level1::getWaves()
 	waves.back().value = 200;
 	tmpStock.clear();
 
-	// wave 8
+	// wave 7
 	for(i=0; i<8; i++)
 		tmpStock.push_back(new Enemy(gameMap.getDoors()[1], gameMap));
 	waves.push_back(Wave(&gameMap, 1/1.f));
@@ -118,9 +117,20 @@ std::vector<Wave> Level1::getWaves()
 	waves.back().value = 180;
 	tmpStock.clear();
 
-	// wave 9
-	for(i=0; i<16; i++)
+	// wave 8
+	for(i=0; i<5; i++)
+	{
+		tmpStock.push_back(new Drake(gameMap.getDoors()[i%2], gameMap));
+	}
+	for(i=0; i<5; i++)
+	{
 		tmpStock.push_back(new Enemy(gameMap.getDoors()[i%2], gameMap));
+	}
+	for(i=0; i<5; i++)
+	{
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%2], gameMap));
+		tmpStock.back()->waveWait = 1/6.f;
+	}
 	waves.push_back(Wave(&gameMap, 1/2.f));
 	waves.back().initStock(tmpStock);
 	waves.back().value = 200;

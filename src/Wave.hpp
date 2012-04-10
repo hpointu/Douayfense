@@ -26,7 +26,7 @@ private:
 	std::vector<Enemy*> stock;
 	PausableClock *clock;
 	Map *gameMap;
-	float freq;
+	float freq, baseFreq;
 	float lastToken;
 };
 

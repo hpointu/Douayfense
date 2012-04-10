@@ -16,6 +16,8 @@ public:
 	bool frozen;
 	bool poisoned;
 
+	float waveWait;
+
 	void tick();
 	bool isDead();
 	bool atHome();
@@ -43,7 +45,6 @@ private:
 	void moveToNext();
 	sf::Sprite sprite;
 	Map myMap;
-
 
 protected:
 	float speed;

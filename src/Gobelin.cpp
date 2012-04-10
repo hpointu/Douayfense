@@ -20,7 +20,7 @@ Enemy* Gobelin::createClone()
 
 float Gobelin::getInitialPv()
 {
-	return 50;
+	return 75;
 }
 
 void Gobelin::playDyingSound()

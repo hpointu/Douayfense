@@ -14,6 +14,7 @@ Enemy::Enemy(Map::Cell pos, Map map) :
 	speed = 2.2f;
 	frozen = false;
 	poisoned = false;
+	waveWait = -1;
 }
 
 Enemy::~Enemy()
