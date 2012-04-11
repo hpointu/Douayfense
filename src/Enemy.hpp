@@ -41,6 +41,8 @@ public:
 	virtual float getInitialPv();
 	virtual void playDyingSound();
 
+	virtual bool isFreezable(){ return true; }
+
 	void init();
 
 private:

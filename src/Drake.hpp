@@ -15,6 +15,7 @@ public:
 	virtual void applyPoison();
 	virtual int getValue();
 
+	virtual bool isFreezable(){ return false; }
 };
 
 #endif // DRAKE_HPP

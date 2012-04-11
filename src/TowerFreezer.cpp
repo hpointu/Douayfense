@@ -57,7 +57,7 @@ std::string TowerFreezer::getName()
 
 bool TowerFreezer::isValid(Enemy *e)
 {
-	return !e->frozen;
+	return e->isFreezable() && !e->frozen;
 }
 
 Bullet* TowerFreezer::createBullet(float x, float y, Enemy *e, int damage)
