@@ -46,7 +46,7 @@ void Map::render(sf::RenderTarget *target)
 		{
 			Cell c = cells[i][j];
 
-			if(c.type == Map::GROUND)
+			if(c.type == Map::GROUND || c.type == Map::ROCK)
 			{
 				sf::Sprite sp(Application::getInstance()->grassImage);
 				sp.SetPosition(j*CELL_SIZE -6,
@@ -73,6 +73,14 @@ void Map::render(sf::RenderTarget *target)
 			else if(c.type == Map::DOOR)
 			{
 				sf::Sprite sp(Application::getInstance()->doorImage);
+				sp.SetPosition(j*CELL_SIZE -8,
+									i*CELL_SIZE -8);
+				target->Draw(sp);
+			}
+
+			else if(c.type == Map::ROCK)
+			{
+				sf::Sprite sp(Application::getInstance()->treesImage);
 				sp.SetPosition(j*CELL_SIZE -8,
 									i*CELL_SIZE -8);
 				target->Draw(sp);

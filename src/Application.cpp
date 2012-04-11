@@ -32,6 +32,7 @@ Application::Application() :
 	doorImage.LoadFromFile("img/door.png");
 	homeImage.LoadFromFile("img/home.png");
 	rockImage.LoadFromFile("img/rock.png");
+	treesImage.LoadFromFile("img/trees.png");
 
 	buttonImage.LoadFromFile("img/button.png");
 	tipImage.LoadFromFile("img/dialog-information.png");

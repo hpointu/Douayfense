@@ -48,6 +48,7 @@ configure_file(res/img/grass.png img/grass.png COPYONLY)
 configure_file(res/img/door.png img/door.png COPYONLY)
 configure_file(res/img/home.png img/home.png COPYONLY)
 configure_file(res/img/rock.png img/rock.png COPYONLY)
+configure_file(res/img/trees.png img/trees.png COPYONLY)
 
 configure_file(res/img/button.png img/button.png COPYONLY)
 configure_file(res/img/dialog-information.png img/dialog-information.png COPYONLY)

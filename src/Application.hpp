@@ -43,7 +43,7 @@ public:
 	sf::Image freezerImage, freezerImageUp;
 	sf::Image poisonerImage, poisonerImageUp;
 	sf::Image woseImage, woseImageUp;
-	sf::Image grassImage, doorImage, homeImage, rockImage;
+	sf::Image grassImage, doorImage, homeImage, rockImage, treesImage;
 	sf::Image buttonImage, tipImage, crownImage, skullImage, rootsImage;
 
 	sf::SoundBuffer dingBuff, dyingBuff, fireBuff;
