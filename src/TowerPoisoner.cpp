@@ -16,7 +16,8 @@ void TowerPoisoner::upgrade()
 {
 	if(!upgraded)
 	{
-		range *= 2;
+		range *= 1.5;
+		speed *= 1.5;
 		upgraded = true;
 		sprite = sf::Sprite(*this->getImage());
 	}
@@ -37,7 +38,7 @@ sf::Image* TowerPoisoner::getImage()
 
 std::string TowerPoisoner::upgradeDescription()
 {
-	return "Double la distance d'attaque";
+	return "Augmente la distance d'attaque et la vitesse d'attaque";
 }
 
 

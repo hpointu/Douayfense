@@ -16,7 +16,8 @@ void TowerWose::upgrade()
 {
 	if(!upgraded)
 	{
-		speed *= 2;
+		range *= 1.5;
+		speed *= 1.5;
 		upgraded = true;
 		sprite = sf::Sprite(*this->getImage());
 	}
@@ -37,7 +38,7 @@ sf::Image* TowerWose::getImage()
 
 std::string TowerWose::upgradeDescription()
 {
-	return "Augmente la vitesse d'attaque";
+	return "Augmente la vitesse d'attaque et la distance d'attaque";
 }
 
 

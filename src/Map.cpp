@@ -160,10 +160,10 @@ sf::Color Map::getColor(Type type)
 		return sf::Color(255,240,165);
 		break;
 	case Map::HOME:
-		return sf::Color::Green;
+		return sf::Color(255,240,165);
 		break;
 	case Map::DOOR:
-		return sf::Color::Yellow;
+		return sf::Color(255,240,165);
 		break;
 	case Map::ROCK:
 		return sf::Color(100,100,100);
