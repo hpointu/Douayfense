@@ -29,6 +29,9 @@ Application::Application() :
 	woseImageUp.LoadFromFile("img/wose_up.png");
 
 	grassImage.LoadFromFile("img/grass.png");
+	doorImage.LoadFromFile("img/door.png");
+	homeImage.LoadFromFile("img/home.png");
+	rockImage.LoadFromFile("img/rock.png");
 
 	buttonImage.LoadFromFile("img/button.png");
 	tipImage.LoadFromFile("img/dialog-information.png");

@@ -56,9 +56,29 @@ void Map::render(sf::RenderTarget *target)
 		}
 	}
 
+	for(unsigned int i=0; i<height; i++)
+	{
+		for(unsigned int j=0; j<width; j++)
+		{
+			Cell c = cells[i][j];
 
+			if(c.type == Map::HOME)
+			{
+				sf::Sprite sp(Application::getInstance()->homeImage);
+				sp.SetPosition(j*CELL_SIZE -8,
+									i*CELL_SIZE -16);
+				target->Draw(sp);
+			}
 
-
+			else if(c.type == Map::DOOR)
+			{
+				sf::Sprite sp(Application::getInstance()->doorImage);
+				sp.SetPosition(j*CELL_SIZE -8,
+									i*CELL_SIZE -8);
+				target->Draw(sp);
+			}
+		}
+	}
 }
 
 bool Map::isVisited(unsigned int i, unsigned int j)
