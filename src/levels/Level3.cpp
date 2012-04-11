@@ -94,6 +94,8 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.back()->waveWait = 1/6.f;
 		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%3], gameMap));
 		tmpStock.back()->waveWait = 1/6.f;
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%3], gameMap));
+		tmpStock.back()->waveWait = 1/6.f;
 	}
 	waves.push_back(Wave(&gameMap, 1/5.f));
 	waves.back().initStock(tmpStock);
