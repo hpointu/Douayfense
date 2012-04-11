@@ -5,7 +5,7 @@
 Drake::Drake(Map::Cell pos, Map map) :
 	Enemy(pos, map)
 {
-	speed = 1.2f;
+	speed = 1.4f;
 }
 
 sf::Image* Drake::getImage()

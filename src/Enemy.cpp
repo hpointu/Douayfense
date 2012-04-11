@@ -11,7 +11,7 @@ Enemy::Enemy(Map::Cell pos, Map map) :
 	x = pos.posJ*CELL_SIZE;
 	y = pos.posI*CELL_SIZE;
 	sprite = sf::Sprite(*getImage());
-	speed = 2.2f;
+	speed = 2.5f;
 	frozen = false;
 	poisoned = false;
 	rooted = 0.f;

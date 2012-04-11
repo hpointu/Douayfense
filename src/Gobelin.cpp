@@ -5,7 +5,7 @@
 Gobelin::Gobelin(Map::Cell pos, Map map) :
 	Enemy(pos, map)
 {
-	speed = 3.5f;
+	speed = 3.7f;
 }
 
 sf::Image* Gobelin::getImage()

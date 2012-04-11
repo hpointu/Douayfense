@@ -262,7 +262,7 @@ void Application::run()
 
 		if(mainClock.GetElapsedTime() > 1.f/60.f)
 		{
-			mainClock.Reset();
+//			mainClock.Reset();
 
 			if(menu->isVisible())
 			{
@@ -411,6 +411,7 @@ void Application::run()
 			}
 
 			window->Display();
+			mainClock.Reset();
 		}
 
 	} // end loop
