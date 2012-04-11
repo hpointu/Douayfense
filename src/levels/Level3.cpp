@@ -61,14 +61,19 @@ std::vector<Wave> Level3::getWaves()
 	waves.push_back(Wave(&gameMap, 1/2.f));
 	waves.back().initStock(tmpStock);
 	waves.back().message = "Courage :)";
-	waves.back().value = 550;
+	waves.back().value = 650;
 	tmpStock.clear();
 
 	// wave 4
-	for(i=0; i<8; i++)
+	for(i=0; i<4; i++)
 	{
 		tmpStock.push_back(new Enemy(gameMap.getDoors()[1], gameMap));
 		tmpStock.push_back(new Drake(gameMap.getDoors()[2], gameMap));
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
+		tmpStock.back()->waveWait = 1/6.f;
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
+		tmpStock.back()->waveWait = 1/6.f;
+		tmpStock.push_back(new Enemy(gameMap.getDoors()[1], gameMap));
 		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
 		tmpStock.back()->waveWait = 1/6.f;
 		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
@@ -77,7 +82,7 @@ std::vector<Wave> Level3::getWaves()
 	waves.push_back(Wave(&gameMap, 1/3.f));
 	waves.back().initStock(tmpStock);
 	waves.back().message = "Attention !";
-	waves.back().value = 650;
+	waves.back().value = 850;
 	tmpStock.clear();
 
 	// wave 5
