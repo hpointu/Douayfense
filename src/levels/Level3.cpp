@@ -42,7 +42,7 @@ std::vector<Wave> Level3::getWaves()
 		tmpStock.push_back(new Gobelin(gameMap.getDoors()[0], gameMap));
 	waves.push_back(Wave(&gameMap, 1/3.f));
 	waves.back().initStock(tmpStock);
-	waves.back().value = 450;
+	waves.back().value = 550;
 	waves.back().message = "";
 	tmpStock.clear();
 
