@@ -60,9 +60,9 @@ void Enemy::render(sf::RenderTarget *target)
 		{
 			// draw pv
 			sf::Color borderColor = poisoned ? sf::Color(120,200,80) : sf::Color::White;
-			sf::Shape border = sf::Shape::Rectangle(x - (getImage()->GetWidth()/2.f) - 8,
+			sf::Shape border = sf::Shape::Rectangle(x - 8,
 																 y - (getImage()->GetHeight()) - 6,
-																 x - (getImage()->GetWidth()/2.f) + 8,
+																 x + 8,
 																 y - (getImage()->GetHeight()) - 1,
 																 sf::Color(0,0,0,0),
 																 1.f,
@@ -70,9 +70,9 @@ void Enemy::render(sf::RenderTarget *target)
 																 );
 
 			float pw = ((float)pv/getInitialPv()) * 16;
-			sf::Shape fill = sf::Shape::Rectangle(x - (getImage()->GetWidth()/2.f) - 8,
+			sf::Shape fill = sf::Shape::Rectangle(x - 8,
 															  y - (getImage()->GetHeight()) - 6,
-															  x - (getImage()->GetWidth()/2.f) - 8 + pw,
+															  x - 8 + pw,
 															  y - (getImage()->GetHeight()) - 1,
 															  sf::Color::White
 															  );
