@@ -6,7 +6,7 @@
 TowerWose::TowerWose() :
 	Tower()
 {
-	price = 275;
+	price = 225;
 	speed = 2;
 	damage = 0;
 	range = 50;
