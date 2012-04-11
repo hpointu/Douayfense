@@ -21,6 +21,7 @@ public:
 	void tick();
 	bool isDead();
 	bool atHome();
+	bool isRooted();
 
 	void hurt(float damage);
 	void win();
@@ -32,6 +33,7 @@ public:
 	virtual float getRealSpeed();
 
 	virtual void freezeMe();
+	virtual void rootMe(float val);
 
 	virtual Enemy* createClone();
 	virtual int getValue();
@@ -43,10 +45,12 @@ public:
 
 private:
 	void moveToNext();
-	sf::Sprite sprite;
+	sf::Sprite sprite, rsp;
 	Map myMap;
 
 protected:
+	float lastRooted;
+	float rooted;
 	float speed;
 };
 

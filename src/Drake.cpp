@@ -37,3 +37,8 @@ void Drake::applyPoison()
 {
 	Enemy::applyPoison();
 }
+
+int Drake::getValue()
+{
+	return 90;
+}

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "TowerFreezer.hpp"
 #include "TowerPoisoner.hpp"
+#include "TowerWose.hpp"
 #include "levels/Level1.hpp"
 #include "levels/Level2.hpp"
 #include "SoundManager.hpp"
@@ -24,12 +25,16 @@ Application::Application() :
 	poisonerImage.LoadFromFile("img/poisoner.png");
 	poisonerImageUp.LoadFromFile("img/poisoner_up.png");
 
+	woseImage.LoadFromFile("img/wose.png");
+	woseImageUp.LoadFromFile("img/wose_up.png");
+
 	grassImage.LoadFromFile("img/grass.png");
 
 	buttonImage.LoadFromFile("img/button.png");
 	tipImage.LoadFromFile("img/dialog-information.png");
 	crownImage.LoadFromFile("img/crown.png");
 	skullImage.LoadFromFile("img/skull.png");
+	rootsImage.LoadFromFile("img/roots.png");
 
 	dingBuff.LoadFromFile("snd/ding.ogg");
 	dyingBuff.LoadFromFile("snd/dying.ogg");
@@ -102,7 +107,8 @@ void Application::processEvents(const sf::Event &e)
 	else if(e.Type == sf::Event::KeyPressed
 			  && (e.Key.Code == sf::Key::A
 					|| e.Key.Code == sf::Key::Z
-					|| e.Key.Code == sf::Key::E))
+					|| e.Key.Code == sf::Key::E
+					|| e.Key.Code == sf::Key::R))
 	{
 		if(mouseMode == TOWER_ADD)
 		{
@@ -340,8 +346,8 @@ void Application::run()
 
 					sf::FloatRect box = finalText.GetRect();
 					sf::Shape boxBorder = sf::Shape::Rectangle(box.Left-8, box.Top-45, box.Right+8, box.Bottom+8,
-																					sf::Color(0,0,0,150),
-																					1.f, sf::Color(0,0,0));
+																			 sf::Color(0,0,0,150),
+																			 1.f, sf::Color(0,0,0));
 
 					sf::Sprite skull(skullImage);
 					skull.SetPosition((box.Right-box.Left)/2.f + box.Left - 20, box.Top-40 );
@@ -360,8 +366,8 @@ void Application::run()
 
 					sf::FloatRect box = finalText.GetRect();
 					sf::Shape boxBorder = sf::Shape::Rectangle(box.Left-8, box.Top-45, box.Right+8, box.Bottom+8,
-																					sf::Color(0,0,0,150),
-																					1.f, sf::Color(0,0,0));
+																			 sf::Color(0,0,0,150),
+																			 1.f, sf::Color(0,0,0));
 
 					sf::Sprite crown(crownImage);
 					crown.SetPosition((box.Right-box.Left)/2.f + box.Left - 20, box.Top-40 );
@@ -414,18 +420,21 @@ Tower* Application::createGhostFromKey(sf::Key::Code keyCode)
 {
 	switch(keyCode)
 	{
-		case sf::Key::A:
-			return new Tower();
-			break;
-		case sf::Key::Z:
-			return new TowerFreezer();
-			break;
-		case sf::Key::E:
-			return new TowerPoisoner();
-			break;
-		default:
-			return NULL;
-			break;
+	case sf::Key::A:
+		return new Tower();
+		break;
+	case sf::Key::Z:
+		return new TowerFreezer();
+		break;
+	case sf::Key::E:
+		return new TowerPoisoner();
+		break;
+	case sf::Key::R:
+		return new TowerWose();
+		break;
+	default:
+		return NULL;
+		break;
 	}
 }
 

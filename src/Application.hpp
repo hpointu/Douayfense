@@ -42,8 +42,9 @@ public:
 	sf::Image towerImage, towerImageUp;
 	sf::Image freezerImage, freezerImageUp;
 	sf::Image poisonerImage, poisonerImageUp;
+	sf::Image woseImage, woseImageUp;
 	sf::Image grassImage;
-	sf::Image buttonImage, tipImage, crownImage, skullImage;
+	sf::Image buttonImage, tipImage, crownImage, skullImage, rootsImage;
 
 	sf::SoundBuffer dingBuff, dyingBuff, fireBuff;
 	sf::SoundBuffer buildBuff, moneyBuff;

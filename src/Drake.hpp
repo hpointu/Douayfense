@@ -13,6 +13,7 @@ public:
 	virtual void playDyingSound();
 	virtual float getRealSpeed();
 	virtual void applyPoison();
+	virtual int getValue();
 
 };
 

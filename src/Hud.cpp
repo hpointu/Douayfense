@@ -88,16 +88,19 @@ void Hud::render(sf::RenderTarget *target)
 	sf::Sprite t1(Application::getInstance()->towerImage);
 	sf::Sprite t2(Application::getInstance()->freezerImage);
 	sf::Sprite t3(Application::getInstance()->poisonerImage);
+	sf::Sprite t4(Application::getInstance()->woseImage);
 
 	sf::String tt1("A");
 	sf::String tt2("Z");
 	sf::String tt3("E");
+	sf::String tt4("R");
 	tt1.SetSize(12);
 	tt2.SetSize(12);
 	tt3.SetSize(12);
+	tt4.SetSize(12);
 
 	sf::Shape mbg = sf::Shape::Rectangle(1, topY-40,
-													 105, topY,
+													 140, topY,
 													 sf::Color(0,0,0,150),
 													 2.f, sf::Color(180,180,180,150));
 
@@ -106,18 +109,22 @@ void Hud::render(sf::RenderTarget *target)
 	t1.SetPosition(5, topY-35);
 	t2.SetPosition(40, topY-35);
 	t3.SetPosition(75, topY-35);
+	t4.SetPosition(110, topY-40);
 
 	tt1.SetPosition(5, topY-15);
 	tt2.SetPosition(40, topY-15);
 	tt3.SetPosition(75, topY-15);
+	tt4.SetPosition(110, topY-15);
 
 	target->Draw(t1);
 	target->Draw(t2);
 	target->Draw(t3);
+	target->Draw(t4);
 
 	target->Draw(tt1);
 	target->Draw(tt2);
 	target->Draw(tt3);
+	target->Draw(tt4);
 
 	if(Application::getInstance()->paused)
 	{
