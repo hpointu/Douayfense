@@ -38,7 +38,7 @@ std::vector<Wave> Level1::getWaves()
 	waves.back().initStock(tmpStock);
 	waves.back().value = 300;
 	waves.back().message = "La touche ESPACE permet de mettre en pause.\n"
-			"Les touches A,Z,E permettent d'acheter des tours.";
+			"Les touches A,Z,E,R permettent d'acheter des tours.";
 	tmpStock.clear();
 
 	// wave 2
