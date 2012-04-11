@@ -86,13 +86,13 @@ std::vector<Wave> Level3::getWaves()
 	tmpStock.clear();
 
 	// wave 5
-	for(i=0; i<16; i++)
+	for(i=0; i<22; i++)
 	{
-		tmpStock.push_back(new Enemy(gameMap.getDoors()[i%2], gameMap));
-		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%2], gameMap));
-		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%2], gameMap));
+		tmpStock.push_back(new Enemy(gameMap.getDoors()[i%3], gameMap));
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%3], gameMap));
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%3], gameMap));
 		tmpStock.back()->waveWait = 1/6.f;
-		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%2], gameMap));
+		tmpStock.push_back(new Gobelin(gameMap.getDoors()[i%3], gameMap));
 		tmpStock.back()->waveWait = 1/6.f;
 	}
 	waves.push_back(Wave(&gameMap, 1/5.f));
